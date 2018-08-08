@@ -12,12 +12,70 @@ of deperecations through python decorators.
   * Free software: BSD license
   * Documentation: https://deprecation-factory.readthedocs.io.
 
-## Features
 
-## Credits
+## Motivations
+Breaking things is important! Breaking other's things is just mean!
 
-Mark Harfouche 2018
+The goal of deprecations is to warn other library writers that their code is
+about to break so you can keep making agressive changes to your own.
 
+Often when you want to deprecate a feature, you end up following a procedure
+similar to
+
+  1. Make the useful modification to your code.
+  2. Decide on when the old behaviour should be switched over.
+  3. Add warnings INSIDE your function to warn users.
+  4. Change the function signature to something non-sensical to detect the
+     default behaviour.
+  5. Add messages in the documentation.
+
+Finally, when the behaviour is official depreprecated, you need to do all these
+changes again.
+  6. Remove the warnings.
+  7. Remove the documentation messages.
+  8. Remove the old behaviour.
+  9. Change the function signature back to something useful.
+
+The goal of this library is to allow you to shortcut steps 3-9. You shouldn't
+have to revisit the deprecation long after you completed 1-2.
+
+This library mangles function signatures and docstrings to make the current
+version of the function appear in autocompletions and on the automatically
+generated documentation.
+
+The library will point the user to **their** line of code, so that they can
+make the appropriate modifications.
+
+It is even safe to leave the deprecators in place after the threshold version
+has been reached. The decorator will behave as a no-op and your library will
+use the updated version of your code. Deprecations should not have to be
+blockers for your development.
+
+
+## Current deprecators
+  * Deprecator for change of default values in `kwargs`.
+
+## Future deprecators
+
+  * Transitionning to keyword only arguments.
+  * Change of default values in `args`.
+  * Remove automatic input sanitization.
+  * Your feature request!
+
+## Development Lead
+
+  * Mark Harfouche
+
+## Contributors
+
+None yet. Why not be the first?
+
+
+### How to contribute
+Ready to contribute? We use the standard github contribution model.
+Scikit-Image has a great
+[writeup[(http://scikit-image.org/docs/dev/contribute.html) on how to setup
+your environment. Adapt it for our environment.
 
 ##### Cookiecutter
 
@@ -25,4 +83,3 @@ This package was created with
 [Cookiecutter](https://github.com/audreyr/cookiecutter) and the
 [audreyr/cookiecutter-pypackage](https://github.com/audreyr/cookiecutter-pypackage)
 project template.
-
