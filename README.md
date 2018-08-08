@@ -31,6 +31,7 @@ similar to
 
 Finally, when the behaviour is official depreprecated, you need to do all these
 changes again.
+
   6. Remove the warnings.
   7. Remove the documentation messages.
   8. Remove the old behaviour.
