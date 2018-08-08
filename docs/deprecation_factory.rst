@@ -12,14 +12,6 @@ deprecation\_factory.deprecation\_factory module
     :undoc-members:
     :show-inheritance:
 
-deprecation\_factory.examples module
-------------------------------------
-
-.. automodule:: deprecation_factory.examples
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 
 Module contents
 ---------------

@@ -7,7 +7,7 @@ Look at the doc page to see how your users would see your documetnation.
 I assume that this package has a version number '0.14'
 """
 
-from .deprecation_factory import default_parameter_change
+from deprecation_factory import default_parameter_change
 import functools
 
 
@@ -18,14 +18,14 @@ default_parameter_change = functools.partial(default_parameter_change,
                                              library_version='0.14')
 
 def foo(this='that'):
-    """this is my docstring.
+    """Prints your parameter.
 
-    This function has no deprecation decorator
+    **This function has no deprecation decorator.**
 
     Parameters
     ----------
     this : str
-        Should be a string
+        This is the string parameter that should be printed
 
     """
     print(this)
@@ -33,14 +33,14 @@ def foo(this='that'):
 
 @default_parameter_change('0.16', this='tim')
 def foo_deprecated(this='that'):
-    """this is my docstring too.
+    """Prints your parameter.
 
-    This function has a depeprecation decorator set to '0.16'
+    **This function has a depeprecation decorator set to '0.16'**
 
     Parameters
     ----------
     this : str
-        Should be a string
+        This is the string parameter that should be printed
 
     """
     print(this)
@@ -48,14 +48,14 @@ def foo_deprecated(this='that'):
 
 @default_parameter_change('0.13', this='tim')
 def foo_deprecated_13(this='that'):
-    """this is my docstring too.
+    """Prints your parameter
 
-    This function has a deprecation decorator set to '0.13'
+    **This function has a deprecation decorator set to '0.13'.**
 
     Parameters
     ----------
     this : str
-        Should be a string
+        This is the string parameter that should be printed.
 
     """
     print(this)

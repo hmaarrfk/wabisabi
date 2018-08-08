@@ -9,6 +9,8 @@ Welcome to Deprecation Factory's documentation!
    usage
    modules
 
+   examples
+
 Indices and tables
 ==================
 * :ref:`genindex`
