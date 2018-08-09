@@ -8,7 +8,7 @@ from warnings import warn
 
 
 def default_parameter_change(version,
-                             library_name, library_version,
+                             library_name, current_library_version,
                              **old_kwargs):
     """Deprecates a default value for a kwarg.
 
@@ -38,7 +38,7 @@ def default_parameter_change(version,
 
     """
     def the_decorator(func):
-        if Version(library_version) >= version:
+        if Version(current_library_version) >= version:
             return func
 
         new_signature = inspect.signature(func)
@@ -47,7 +47,7 @@ def default_parameter_change(version,
                         '``{funcname}`` '
                         'will have new default parameters. To avoid this '
                         'warning specify the value of all listed arguments.'
-                        '\n\n'.format(version=version, module=library_version,
+                        '\n\n'.format(version=version, module=library_name,
                                       funcname=funcname))
 
         old_parameters = [
@@ -62,12 +62,13 @@ def default_parameter_change(version,
         @wraps(func)
         def wrapper(*args, **kwargs):
             issue_warning = False
+            message = base_message
             for key, old_value in old_kwargs.items():
                 if key in kwargs:
                     continue
                 new_value = new_signature.parameters[key].default
-                message = (base_message +
-                           '    The default value for ``{argname}`` '
+                message = (message +
+                           '    The default value of ``{argname}`` '
                            'will be changed from ``{old_value}`` to '
                            '``{new_value}``. '
                            '\n'.format(argname=key,
@@ -87,6 +88,11 @@ def default_parameter_change(version,
             return func(*args, **kwargs)
 
         wrapper.__signature__ = old_signature
+
+        # If the wrapper doesn't have a doc string, don't bother adding one.
+        if wrapper.__doc__ is None:
+            return wrapper
+
         doc_deprecated_kwargs = ''
         for key, old_value in old_kwargs.items():
             new_value = new_signature.parameters[key].default
@@ -111,8 +117,7 @@ FutureWarning
 
 """
 
-        # Attempt to guess the number of spaces for the Parameters section.
-        parameters_line = re.search('.*Parameters$', func.__doc__,
+        parameters_line = re.search('.*Parameters$', wrapper.__doc__,
                                     flags=re.MULTILINE)
         if parameters_line is not None:
             indentation_amount = parameters_line.group().find('P')
