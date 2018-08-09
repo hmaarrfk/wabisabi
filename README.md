@@ -5,7 +5,7 @@
 [![Docs](https://readthedocs.org/projects/deprecation-factory/badge/?version=latest)](https://deprecation-factory.readthedocs.io/en/latest/?badge=latest)
 
 
-Python deprecation factory. Automatically write boilerplate code for many kinds
+Python3 deprecation factory. Automatically write boilerplate code for many kinds
 of deperecations through python decorators.
 
 
@@ -38,9 +38,10 @@ changes again.
   9. Change the function signature back to something useful.
 
 The goal of this library is to allow you to shortcut steps 3-9. You shouldn't
-have to revisit the deprecation long after you completed 1-2.
+have to revisit the deprecation long after you completed implementing your new
+features
 
-This library mangles function signatures and docstrings to make the current
+This library modifies function signatures and docstrings to make the current
 version of the function appear in autocompletions and on the automatically
 generated documentation.
 
