@@ -2,8 +2,14 @@ language: python
 python:
 - 3.6
 - 3.5
+
 install: pip install -U tox-travis
+
 script: tox
+
+after_success:
+  - codecov
+
 deploy:
   provider: pypi
   distributions: sdist bdist_wheel
@@ -14,3 +20,4 @@ deploy:
     tags: true
     repo: hmaarrfk/deprecation_factory
     python: 3.6
+
