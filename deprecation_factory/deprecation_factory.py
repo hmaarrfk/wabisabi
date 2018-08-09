@@ -7,7 +7,6 @@ import textwrap
 from warnings import warn
 
 
-
 def default_parameter_change(version,
                              library_name, library_version,
                              **old_kwargs):
@@ -33,10 +32,6 @@ def default_parameter_change(version,
         The version in which the parameter will take the new default value.
         If the software version reaches this value, the new default will be
         taken on without warning.
-
-    version_start_warnings: version-like (optional)
-        The version in which the warnings will start to be issued. By default
-        issues will be issued.
 
     old_kwargs:
         The keyword arguments with their old default values.
@@ -81,15 +76,13 @@ def default_parameter_change(version,
                 kwargs[key] = old_value
                 issue_warning = True
             if issue_warning:
-                if (version_start_warnings is None or
-                        Version(__version__) >= version_start_warnings):
-                    # stack level 1 refers to inside the warning function
-                    # stack level 2 refers to this decorator
-                    # stack levle 3 refers to where the caller wrote his code.
-                    # Setting it to stack level 3 helps him find what line of
-                    # his code he should change
+                # stack level 1 refers to inside the warning function
+                # stack level 2 refers to this decorator
+                # stack levle 3 refers to where the caller wrote his code.
+                # Setting it to stack level 3 helps him find what line of
+                # his code he should change
 
-                    warn(message, FutureWarning, stacklevel=3)
+                warn(message, FutureWarning, stacklevel=3)
 
             return func(*args, **kwargs)
 

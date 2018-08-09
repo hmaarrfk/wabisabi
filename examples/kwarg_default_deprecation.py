@@ -17,6 +17,7 @@ default_parameter_change = functools.partial(default_parameter_change,
                                              library_name='my super lib',
                                              library_version='0.14')
 
+
 def foo(this='that'):
     """Prints your parameter.
 
