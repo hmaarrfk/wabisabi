@@ -3,8 +3,10 @@
 
 """The setup script."""
 
-from setuptools import setup, find_packages
+from setuptools import setup, PEP420PackageFinder
 import versioneer
+
+find_packages_ns = PEP420PackageFinder.find
 
 with open('README.md') as readme_file:
     readme = readme_file.read()
@@ -12,7 +14,6 @@ with open('README.md') as readme_file:
 with open('HISTORY.md') as history_file:
     history = history_file.read()
 
-requirements = [ ]
 
 test_requirements = ['pytest', 'numpydoc']
 
@@ -29,15 +30,15 @@ setup(
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
     ],
-    description="Python deprecation factory ensuring useful warnings and docstrings for different deprecations.",
-    install_requires=requirements,
+    description=("Python deprecation factory ensuring useful warnings and "
+                 "docstrings for different deprecations."),
     license="BSD license",
     long_description=readme + '\n\n' + history,
     long_description_content_type='text/markdown',
     include_package_data=True,
     keywords='deprecation_factory',
     name='deprecation_factory',
-    packages=find_packages(include=['deprecation_factory']),
+    packages=find_packages_ns(include=['deprecation_factory']),
     setup_requires=['setuptools'],
     tests_require=test_requirements,
     url='https://github.com/hmaarrfk/deprecation_factory',
