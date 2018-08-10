@@ -63,6 +63,7 @@ blockers for your development.
 
   * Transitionning to keyword only arguments.
   * Swapping the order of positional arguments
+  * Making an old `kwarg` a manditory positional `arg`
   * Feature requests are welcome!
 
 ## Other directions
