@@ -92,8 +92,8 @@ def default_parameter_change(version,
             new_value = new_signature.parameters[key].default
             doc_deprecated_kwargs = (
                 doc_deprecated_kwargs +
-                '    {argname} : {old_value} -> {new_value}'
-                '\n'.format(argname=key,
+                '    `{argname}` : `{old_value}` -> `{new_value}`'
+                '\n\n'.format(argname=key,
                             old_value=old_value.__repr__(),
                             new_value=new_value.__repr__()))
         warnings_string = """

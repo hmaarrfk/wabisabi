@@ -62,5 +62,23 @@ def foo_deprecated_13(this='that'):
     print(this)
 
 
+@default_parameter_change('0.16', bar='bonjour', baz='monde')
+def foo_two_params(bar='hello', baz='world'):
+    """Joins two strings with a space between them.
+
+    **This function has a deprecation decorator set to '0.16'.**
+
+    Parameters
+    ----------
+    bar : str
+        The first word to join.
+
+    baz : str
+        The second word to join.
+
+    """
+    return bar + ' ' + baz
+
+
 if __name__ == '__main__':
     foo_deprecated()

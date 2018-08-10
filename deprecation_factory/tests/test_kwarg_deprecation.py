@@ -148,7 +148,7 @@ def test_foo_docs():
     docs = FunctionDoc(foo_with_docs_15)
     assert 'Warns' in docs
     assert 'FutureWarning' == docs['Warns'][0][0]
-    assert "bar : 'world' -> 'hello'" in '\n'.join(docs['Warns'][0][2])
+    assert "`bar` : `'world'` -> `'hello'`" in '\n'.join(docs['Warns'][0][2])
 
     assert foo_with_docs_13.__doc__ == foo_with_docs.__doc__
 
@@ -181,9 +181,9 @@ def test_foo2_docs():
     docs = FunctionDoc(foo2_with_docs_15)
     assert 'Warns' in docs
     assert 'FutureWarning' == docs['Warns'][0][0]
-    assert "bar : 'bonjour' -> 'hello'" in '\n'.join(docs['Warns'][0][2])
-    assert "baz : 'monde' -> 'world'" in '\n'.join(docs['Warns'][0][2])
-
+    assert "`bar` : `'bonjour'` -> `'hello'`" in '\n'.join(docs['Warns'][0][2])
+    assert "`baz` : `'monde'` -> `'world'`" in '\n'.join(docs['Warns'][0][2])
+    assert "`'hello'`\n\n `baz`" in '\n'.join(docs['Warns'][0][2])
     assert foo2_with_docs_13.__doc__ == foo2_with_docs.__doc__
 
     with warns(FutureWarning, match='In release 0.15 of mylib'):
