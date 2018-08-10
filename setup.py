@@ -14,9 +14,7 @@ with open('HISTORY.md') as history_file:
 
 requirements = [ ]
 
-setup_requirements = ['pytest-runner', ]
-
-test_requirements = ['pytest', ]
+test_requirements = ['pytest', 'numpydoc']
 
 setup(
     author="Mark Harfouche",
@@ -26,10 +24,7 @@ setup(
         'Intended Audience :: Developers',
         'License :: OSI Approved :: BSD License',
         'Natural Language :: English',
-        "Programming Language :: Python :: 2",
-        'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
@@ -43,8 +38,7 @@ setup(
     keywords='deprecation_factory',
     name='deprecation_factory',
     packages=find_packages(include=['deprecation_factory']),
-    setup_requires=setup_requirements,
-    test_suite='tests',
+    setup_requires=['setuptools'],
     tests_require=test_requirements,
     url='https://github.com/hmaarrfk/deprecation_factory',
     version=versioneer.get_version(),
