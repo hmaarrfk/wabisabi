@@ -97,10 +97,10 @@ def default_parameter_change(version,
 
         old_parameters = [
             inspect.Parameter(
-                key, new_signature.parameters[key].kind,
-                default=new_signature.parameters[key].default
+                key, param.kind,
+                default=param.default
                 if key not in old_kwargs else old_kwargs[key])
-            for key in new_signature.parameters]
+            for key, param in new_signature.parameters.items()]
         func_args = inspect.getfullargspec(func).args
         old_signature = new_signature.replace(parameters=old_parameters)
 
