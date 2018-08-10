@@ -1,9 +1,13 @@
 # History
 
+## 0.1.1 (2018.08.09)
+
+* Deprecated arguments appear in order for Python 3.5 as well.
+
 ## 0.1.0 (2018.08.09)
 
-* New deprecator for changing the default value of `kwards`. Handles arguments passed 
-  as positional argumnets too.
+* New deprecator for changing the default value of `kwards`. Handles arguments
+  passed as positional argumnets too.
 
 ## 0.0.1 (2018-07-29)
 
