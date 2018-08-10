@@ -94,7 +94,10 @@ def default_parameter_change(version,
             return wrapper
 
         doc_deprecated_kwargs = ''
-        for key, old_value in old_kwargs.items():
+        for param in old_parameters:
+            key = param.name
+            old_value = param.default
+
             new_value = new_signature.parameters[key].default
             doc_deprecated_kwargs = (
                 doc_deprecated_kwargs +
