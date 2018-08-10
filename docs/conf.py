@@ -23,6 +23,7 @@ import sys
 sys.path.insert(0, os.path.abspath('..'))
 
 import deprecation_factory
+from recommonmark.parser import CommonMarkParser
 
 # -- General configuration ---------------------------------------------
 
@@ -45,7 +46,7 @@ templates_path = ['_templates']
 #
 source_suffix = ['.rst', '.md']
 source_parsers = {
-   '.md': 'recommonmark.parser.CommonMarkParser',
+   '.md': CommonMarkParser,
 }
 
 # The master toctree document.

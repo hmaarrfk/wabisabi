@@ -9,8 +9,8 @@ Python3 deprecation factory. Automatically write boilerplate code for many kinds
 of deperecations through python decorators.
 
 
-  * Free software: BSD license
-  * Documentation: https://deprecation-factory.readthedocs.io.
+  * Free software: [BSD license](LICENSE)
+  * [Documentation](https://deprecation-factory.readthedocs.io)
 
 
 ## Motivations
@@ -55,14 +55,19 @@ blockers for your development.
 
 
 ## Current deprecators
-  * Deprecator for change of default values in `kwargs`.
+
+  * Deprecator for change of default values in `kwargs`. Handles `kwargs`
+    passed as positional arguments too!
 
 ## Future deprecators
 
   * Transitionning to keyword only arguments.
-  * Change of default values in `args`.
-  * Remove automatic input sanitization.
-  * Your feature request!
+  * Swapping the order of positional arguments
+  * Feature requests are welcome!
+
+## Other directions
+
+  * Input sanitization.
 
 ## Development Lead
 
@@ -76,7 +81,7 @@ None yet. Why not be the first?
 ### How to contribute
 Ready to contribute? We use the standard github contribution model.
 Scikit-Image has a great
-[writeup[(http://scikit-image.org/docs/dev/contribute.html) on how to setup
+[writeup](http://scikit-image.org/docs/dev/contribute.html) on how to setup
 your environment. Adapt it for our environment.
 
 ##### Cookiecutter

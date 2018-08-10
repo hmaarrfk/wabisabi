@@ -5,11 +5,14 @@ Welcome to Deprecation Factory's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+   README
    installation
    usage
    modules
 
    examples
+
+   HISTORY
 
 Indices and tables
 ==================

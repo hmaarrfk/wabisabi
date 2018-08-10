@@ -1,51 +1,14 @@
-.. highlight:: shell
-
 ============
 Installation
 ============
 
+Deprecation Factory is meant to be a project dependency and not installed
+directly by the end user. As such, we assume that you know how to manage
+depdencies for your project.
 
-Stable release
---------------
-
-To install Deprecation Factory, run this command in your terminal:
-
-.. code-block:: console
-
-    $ pip install deprecation_factory
-
-This is the preferred method to install Deprecation Factory, as it will always install the most recent stable release.
-
-If you don't have `pip`_ installed, this `Python installation guide`_ can guide
-you through the process.
-
-.. _pip: https://pip.pypa.io
-.. _Python installation guide: http://docs.python-guide.org/en/latest/starting/installation/
+Deprecation Factory only depends on the Python standard library keeping it
+lightweight. This package is available both on `PyPi`_ and `conda-forge`_.
 
 
-From sources
-------------
-
-The sources for Deprecation Factory can be downloaded from the `Github repo`_.
-
-You can either clone the public repository:
-
-.. code-block:: console
-
-    $ git clone git://github.com/hmaarrfk/deprecation_factory
-
-Or download the `tarball`_:
-
-.. code-block:: console
-
-    $ curl  -OL https://github.com/hmaarrfk/deprecation_factory/tarball/master
-
-Once you have a copy of the source, you can install it with:
-
-.. code-block:: console
-
-    $ python setup.py install
-
-
-.. _Github repo: https://github.com/hmaarrfk/deprecation_factory
-.. _tarball: https://github.com/hmaarrfk/deprecation_factory/tarball/master
+.. _PyPi: https://pypi.org/project/deprecation-factory/
+.. _conda-forge: https://anaconda.org/conda-forge/deprecation-factory
