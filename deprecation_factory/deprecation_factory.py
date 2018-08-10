@@ -74,6 +74,12 @@ def default_parameter_change(version,
         If the software version reaches this value, the new default will be
         taken on without warning.
 
+    library_name : str
+        The human readable name for your library.
+
+    current_library_version : version-like
+        The current version of your library.
+
     old_kwargs:
         The keyword arguments with their old default values.
 
