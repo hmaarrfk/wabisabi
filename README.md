@@ -53,6 +53,12 @@ has been reached. The decorator will behave as a no-op and your library will
 use the updated version of your code. Deprecations should not have to be
 blockers for your development.
 
+## Installation
+
+While you can depend on this, I strongly recommend you version the files you 
+need in your project as the API is highly likely to change and break your code.
+
+Make sure you keep a BSD notice in your code when you version this.
 
 ## Current deprecators
 
