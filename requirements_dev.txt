@@ -2,7 +2,3 @@ pip
 wheel
 flake8
 pytest-cov
-recommonmark
-sphinx
-sphinx_rtd_theme
-numpydoc
