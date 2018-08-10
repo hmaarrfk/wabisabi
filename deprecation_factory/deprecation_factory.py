@@ -77,13 +77,7 @@ def default_parameter_change(version,
                 kwargs[key] = old_value
                 issue_warning = True
             if issue_warning:
-                # stack level 1 refers to inside the warning function
-                # stack level 2 refers to this decorator
-                # stack levle 3 refers to where the caller wrote his code.
-                # Setting it to stack level 3 helps him find what line of
-                # his code he should change
-
-                warn(message, FutureWarning, stacklevel=3)
+                warn(message, FutureWarning, stacklevel=2)
 
             return func(*args, **kwargs)
 

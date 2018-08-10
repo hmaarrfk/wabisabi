@@ -15,7 +15,7 @@ import functools
 # functools.partial to set the library version and name.
 default_parameter_change = functools.partial(default_parameter_change,
                                              library_name='my super lib',
-                                             library_version='0.14')
+                                             current_library_version='0.14')
 
 
 def foo(this='that'):
@@ -60,3 +60,7 @@ def foo_deprecated_13(this='that'):
 
     """
     print(this)
+
+
+if __name__ == '__main__':
+    foo_deprecated()
