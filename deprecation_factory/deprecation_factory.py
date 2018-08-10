@@ -56,7 +56,7 @@ def default_parameter_change(version,
                 default=new_signature.parameters[key].default
                 if key not in old_kwargs else old_kwargs[key])
             for key in new_signature.parameters]
-
+        func_args = inspect.getfullargspec(func).args
         old_signature = new_signature.replace(parameters=old_parameters)
 
         @wraps(func)
@@ -64,6 +64,12 @@ def default_parameter_change(version,
             issue_warning = False
             message = base_message
             for key, old_value in old_kwargs.items():
+                if (new_signature.parameters[key].kind is
+                        inspect._POSITIONAL_OR_KEYWORD):
+                    arg_pos = func_args.index(key)
+                    if len(args) > arg_pos:
+                        continue
+
                 if key in kwargs:
                     continue
                 new_value = new_signature.parameters[key].default
@@ -94,8 +100,8 @@ def default_parameter_change(version,
                 doc_deprecated_kwargs +
                 '    `{argname}` : `{old_value}` -> `{new_value}`'
                 '\n\n'.format(argname=key,
-                            old_value=old_value.__repr__(),
-                            new_value=new_value.__repr__()))
+                              old_value=old_value.__repr__(),
+                              new_value=new_value.__repr__()))
         warnings_string = """
 Warns
 -----

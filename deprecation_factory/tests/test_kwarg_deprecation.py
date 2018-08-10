@@ -42,6 +42,10 @@ def test_deprecating_param_provided(version_above):
         warnings.simplefilter("error")
         assert foo_0_15(bar='bar23') == 'bar23'
 
+    with warnings.catch_warnings():
+        warnings.simplefilter("error")
+        assert foo_0_15('bar23') == 'bar23'
+
 
 def test_deprecated():
     foo_0_13 = default_parameter_change('0.13', bar='bar')(foo)
@@ -88,6 +92,19 @@ def test_deprecating2():
     assert 'The default value of ``c``' in str(the_warning.message)
     assert "from ``'C'`` to ``'c'``" in str(the_warning.message)
 
+    # Positional argument
+    with warns(FutureWarning, match='In release 0.15 of mylib') as record:
+        assert foo2_0_15('a', 'D') == 'aDC'
+
+    assert len(record) == 1
+    the_warning = record[0]
+
+    assert 'The default value of ``b``' not in str(the_warning.message)
+    assert "from ``'B'`` to ``'c'``" not in str(the_warning.message)
+
+    assert 'The default value of ``c``' in str(the_warning.message)
+    assert "from ``'C'`` to ``'c'``" in str(the_warning.message)
+
     with warns(FutureWarning, match='In release 0.15 of mylib') as record:
         assert foo2_0_15('a', c='D') == 'aBD'
 
@@ -105,6 +122,10 @@ def test_deprecating_param_provided2():
     with warnings.catch_warnings():
         warnings.simplefilter("error")
         assert foo2_0_15('a', b='X', c='Y') == 'aXY'
+
+    with warnings.catch_warnings():
+        warnings.simplefilter("error")
+        assert foo2_0_15('a', 'X', 'Y') == 'aXY'
 
 
 def test_deprecated2():
