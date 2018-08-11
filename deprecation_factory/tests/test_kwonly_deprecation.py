@@ -16,7 +16,7 @@ def foo_easy(*, a=6):
 
 def test_too_easy():
     assert foo_easy() == 6
-    with warns(FutureWarning, match='Whoa!'):
+    with warns(FutureWarning, match='In version 0.15'):
         assert foo_easy(3) == 3
     with warnings.catch_warnings():
         warnings.simplefilter("error")
@@ -32,21 +32,33 @@ def test_foo_medium():
     with raises(TypeError, match=r'.* missing 1 required positional argument'):
         foo_medium()
     assert foo_medium(0) == 0
-    with warns(FutureWarning, match='Whoa!'):
+    with warns(FutureWarning, match='In version 0.15'):
         assert foo_medium(1, 1, 1) == 2
 
-    with warns(FutureWarning, match='Whoa!'):
+    with warns(FutureWarning, match='In version 0.15'):
         assert foo_medium(1, 1, 1, 1) == 1
 
-    with warns(FutureWarning, match='Whoa!'):
+    with warns(FutureWarning, match='In version 0.15'):
         assert foo_medium(1, 1, 1, d=1) == 1
 
     with warnings.catch_warnings():
         warnings.simplefilter("error")
         assert foo_medium(1, d=2, c=2) == 8
 
+    with warnings.catch_warnings():
+        warnings.simplefilter("error")
+        assert foo_medium(1, c=2) == 8
 
-@kwonly_change('0.15', previous_nargs=3)
+    with warnings.catch_warnings():
+        warnings.simplefilter("error")
+        assert foo_medium(1, 1, c=2) == 4
+
+    with warnings.catch_warnings():
+        warnings.simplefilter("error")
+        assert foo_medium(1, 1, d=1) == 6
+
+
+@kwonly_change('0.15', previous_arg_order=['a', 'b', 'd'])
 def foo_hard(a, b=2, *, c=6, d=2):
     return a * b * c * d
 
@@ -54,7 +66,9 @@ def foo_hard(a, b=2, *, c=6, d=2):
 def test_foo_hard():
     with raises(TypeError, match=r'.* missing 1 required positional argument'):
         foo_hard()
-    with warns(FutureWarning, match='Whoa!'):
+
+    # Specifying d both as position and keyword only
+    with raises(SyntaxError, match='In version 0.15'):
         assert foo_hard(1, 1, 1, d=1) == 1
 
     with raises(TypeError, match=r'.* takes 3 positional arguments'):

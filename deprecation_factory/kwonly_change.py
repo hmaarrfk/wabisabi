@@ -42,15 +42,17 @@ from functools import wraps
 import inspect
 import re
 import textwrap
-
+import inspect
 from warnings import warn
 
 POSITIONAL_OR_KEYWORD = inspect.Parameter.POSITIONAL_OR_KEYWORD
 
 
 def kwonly_change(version,
-                  library_name, current_library_version,
-                  previous_nargs=None, keep_old_signature=False):
+                  library_name,
+                  current_library_version,
+                  previous_arg_order=None,
+                  keep_old_signature=False):
 
     def the_decorator(func):
         if Version(current_library_version) >= version:
@@ -59,11 +61,12 @@ def kwonly_change(version,
 
         new_arg_names = [name for name in new_signature.parameters]
 
-        if previous_nargs is None:
+        if previous_arg_order is None:
             old_nargs = len(new_signature.parameters)
+            old_arg_names = new_arg_names[:old_nargs]
         else:
-            old_nargs = previous_nargs
-
+            old_nargs = len(previous_arg_order)
+            old_arg_names = previous_arg_order
         # These arguments are still required as argument only keywords
         func_args = inspect.getfullargspec(func).args
         new_nargs = len(func_args)
@@ -94,13 +97,40 @@ def kwonly_change(version,
                                           len_args=len(args)))
 
             if len(args) > new_nargs:
-                new_kwargs = {key: value
-                              for key, value in zip(new_arg_names[new_nargs:],
-                                                    args[new_nargs:])}
-                args = args[:new_nargs]
-                kwargs.update(new_kwargs)
+                for key, value in zip(old_arg_names[new_nargs:len(args)],
+                                      args[new_nargs:]):
+                    if key in kwargs:
+                        calling_function = inspect.stack()[1]
 
-                warn("Whoa!", FutureWarning, stacklevel=2)
+                        s = SyntaxError(
+                            "In version {version} of {library_name}, the "
+                            "argument ('{key}') has "
+                            "will become a keyword only argument. You "
+                            "specified it as both a positional argument and "
+                            "a keyword argument."
+                            "".format(version=version,
+                                      library_name=library_name,
+                                      key=key))
+                        s.lineno = calling_function.lineno
+                        s.filename = calling_function.filename
+                        # Even the normal syntax errors suck at telling you
+                        # the position of your error whe a statement spans
+                        # multiple lines
+                        # s.offset =  # is it worth it to find where?
+                        raise s
+                    kwargs[key] = value
+
+                warn("In version {version} of {library_name}, the "
+                     "argument(s): '{old_pos_args}' will become keyword-only "
+                     "argument(s). To suppress this warning, specify all "
+                     "listed arguments with keywords."
+                     "".format(
+                         version=version, library_name=library_name,
+                         old_pos_args=old_arg_names[new_nargs:len(args)]),
+                     FutureWarning, stacklevel=2)
+
+                args = args[:new_nargs]
+
             return func(*args, **kwargs)
 
         if keep_old_signature:
