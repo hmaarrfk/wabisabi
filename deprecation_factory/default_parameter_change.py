@@ -87,13 +87,12 @@ def default_parameter_change(version,
             return func
 
         new_signature = inspect.signature(func)
-        funcname = func.__name__
         base_message = ('In release {version} of {module}, the function '
                         '``{funcname}`` '
                         'will have new default parameters. To avoid this '
                         'warning specify the value of all listed arguments.'
                         '\n\n'.format(version=version, module=library_name,
-                                      funcname=funcname))
+                                      funcname=func.__name__))
 
         old_parameters = [
             inspect.Parameter(
@@ -158,7 +157,7 @@ FutureWarning
     new values for the following keyword arguments:
 
 """.format(version=version, module=library_name,
-           funcname=funcname) + doc_deprecated_kwargs + """
+           funcname=func.__name__) + doc_deprecated_kwargs + """
 
    To avoid this warning in your code, specify the value of all listed
    keyword arguments.

@@ -1,6 +1,6 @@
 """
-What the documentation will look like
--------------------------------------
+Argument default value
+----------------------
 
 One important advantage of using these decorators is that they ensure that the
 docstrings are correct. This module has as hypothetical version number of

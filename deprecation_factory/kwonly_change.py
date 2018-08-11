@@ -72,16 +72,23 @@ def kwonly_change(version,
         new_nargs = len(func_args)
 
         old_parameters = []
-        for key, param in new_signature.parameters.items():
-            index = new_arg_names.index(key)
+        all_params = {**new_signature.parameters}
+        for key in old_arg_names:
+            param = all_params.pop(key)
             if key in func_args:
-                kind = param.kind
-            elif index >= old_nargs:
                 kind = param.kind
             else:
                 kind = POSITIONAL_OR_KEYWORD
+
             old_parameters.append(
-                inspect.Parameter(key, kind, default=param.default))
+                inspect.Parameter(key, kind=kind,
+                                  default=param.default,
+                                  annotation=param.annotation))
+        for key, param in all_params.items():
+            old_parameters.append(
+                inspect.Parameter(key, kind=param.kind,
+                                  default=param.default,
+                                  annotation=param.annotation))
 
         old_signature = new_signature.replace(parameters=old_parameters)
 
@@ -135,5 +142,28 @@ def kwonly_change(version,
 
         if keep_old_signature:
             wrapper.__signature__ = old_signature
+
+        warnings_string = """
+Warns
+-----
+FutureWarning
+    In release {version} of {module}, this the arguments:
+
+        {args}
+
+    will become keyword-only arguments. To avoid this warning,
+    provide all the above arguments as keyword arguments.
+
+""".format(version=version, module=library_name,
+           funcname=func.__name__, args=old_arg_names[new_nargs:])
+
+        if wrapper.__doc__ is not None:
+            parameters_line = re.search('.*Parameters$', wrapper.__doc__,
+                                        flags=re.MULTILINE)
+            if parameters_line is not None:
+                indentation_amount = parameters_line.group().find('P')
+                warnings_string = textwrap.indent(
+                    warnings_string, ' ' * indentation_amount)
+            wrapper.__doc__ = wrapper.__doc__ + warnings_string
         return wrapper
     return the_decorator

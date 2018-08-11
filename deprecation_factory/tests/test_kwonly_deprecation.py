@@ -1,6 +1,7 @@
 from deprecation_factory import kwonly_change
 from functools import partial
 from pytest import warns, raises
+import inspect
 import warnings
 
 __version__ = '0.14'
@@ -58,18 +59,65 @@ def test_foo_medium():
         assert foo_medium(1, 1, d=1) == 6
 
 
-@kwonly_change('0.15', previous_arg_order=['a', 'b', 'd'])
-def foo_hard(a, b=2, *, c=6, d=2):
+def foo_hard_new(a, b=2, *, c=6, d=2):
     return a * b * c * d
+
+
+def foo_hard_old(a, b=2, d=2, *, c=6):
+    return a * b * c * d
+
+
+foo_hard_no_sig_change = kwonly_change('0.15',
+                                       previous_arg_order=['a', 'b', 'd'])(
+                                           foo_hard_new)
+
+foo_hard_sig_change = kwonly_change('0.15',
+                                    previous_arg_order=['a', 'b', 'd'],
+                                    keep_old_signature=True)(foo_hard_new)
 
 
 def test_foo_hard():
     with raises(TypeError, match=r'.* missing 1 required positional argument'):
-        foo_hard()
+        foo_hard_no_sig_change()
 
     # Specifying d both as position and keyword only
     with raises(SyntaxError, match='In version 0.15'):
-        assert foo_hard(1, 1, 1, d=1) == 1
+        assert foo_hard_no_sig_change(1, 1, 1, d=1) == 1
 
     with raises(TypeError, match=r'.* takes 3 positional arguments'):
-        foo_hard(1, 1, 1, 1)
+        foo_hard_no_sig_change(1, 1, 1, 1)
+
+
+def test_foo_signature_change():
+    assert (inspect.signature(foo_hard_sig_change) ==
+            inspect.signature(foo_hard_old))
+
+
+def foo_easy_already_deprecated(*, a=6):
+    return a
+
+
+def test_already_deprecated():
+    foo_easy_should_not_change = kwonly_change('0.1')(
+        foo_easy_already_deprecated)
+    assert foo_easy_should_not_change == foo_easy_already_deprecated
+
+
+@kwonly_change('0.15')
+def foo_docs(a='a', *, b='b'):
+    """This is foo
+
+    Parameters
+    ----------
+    a: str
+        This is a.
+
+    b: str
+        This is b
+
+    """
+    return a + b
+
+def test_doc():
+    assert "    Warns" in foo_docs.__doc__
+    assert "['b']" in foo_docs.__doc__
