@@ -1,7 +1,8 @@
 deprecation_factory
 ===================
 
-.. toctree::
-   :maxdepth: 4
+.. currentmodule:: deprecation_factory
 
-   deprecation_factory
+.. autofunction:: default_parameter_change
+
+.. autofunction:: kwonly_change
