@@ -4,37 +4,7 @@ I suggest you vendor this so that you don't create conflicts if other
 libraries decide to use an older, incompatible version
 
 If you are shipping python source code, then I've included the license
-as part of this header to make your life easier.
-
-BSD 3-Clause License
-
-Copyright (c) 2018, Mark Harfouche
-All rights reserved.
-
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met:
-
-* Redistributions of source code must retain the above copyright notice, this
-  list of conditions and the following disclaimer.
-
-* Redistributions in binary form must reproduce the above copyright notice,
-  this list of conditions and the following disclaimer in the documentation
-  and/or other materials provided with the distribution.
-
-* Neither the name of the copyright holder nor the names of its
-  contributors may be used to endorse or promote products derived from
-  this software without specific prior written permission.
-
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+at the bottom of this file to make your life easier.
 """
 
 from distutils.version import LooseVersion as Version
@@ -53,6 +23,49 @@ def kwonly_change(version,
                   current_library_version,
                   previous_arg_order=None,
                   keep_old_signature=False):
+    """Returns a decorator that enforces a smaller of positional arguments.
+
+    If the current library version is smaller than version in which the new
+    signature takes effect, this deprecator will:
+
+    Issue a warnign pointing to the user's code if they call a function with
+    too many positional arguments.
+
+    If you want to move the new keyword only arguments after the ``*, ``, you
+    should specify a list with the previous order of arguments as the parameter
+    ``previous_arg_order``. If this parameter is not specified, it is assumed
+    that the previous function signature allowed all parameters to be specified
+    as either positional or keyword arguments.
+
+    Parameters
+    ----------
+    version: version-like
+        Version in which the new function signature takes full effect.
+
+    library_name: str
+        Friendly library name to include in warning messages
+
+    current_library_version: version-like
+        The current version of the shipped library (typically your module's
+        ``__version__``).
+
+    previous_arg_order: list of strings or ``None``
+        If the function previously had keyword only arguments, you should use
+        this to specify the names of previous positional arguments. If set
+        to none, it is assumed that the previous version of the function
+        would accept all parameters as positional or keyword arguments.
+        Specifying this also allows you to re-order the new keyword only.
+        To re-iterate, you cannot swap the order of positional arguments with
+        this deprecator.
+
+
+    keep_old_signature: bool
+        If set to true, the signature will reflect the previous signature of
+        the function. This is not recommended since showing new users the
+        keyword-only version of the signature will not cause them to write
+        wrong code. If they follow the new signature, their code will be
+        correct and they will avoid the ``FutureWarning``.
+    """
 
     def the_decorator(func):
         if Version(current_library_version) >= version:
@@ -167,3 +180,36 @@ FutureWarning
             wrapper.__doc__ = wrapper.__doc__ + warnings_string
         return wrapper
     return the_decorator
+
+
+"""
+BSD 3-Clause License
+
+Copyright (c) 2018, Mark Harfouche
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+* Redistributions of source code must retain the above copyright notice, this
+  list of conditions and the following disclaimer.
+
+* Redistributions in binary form must reproduce the above copyright notice,
+  this list of conditions and the following disclaimer in the documentation
+  and/or other materials provided with the distribution.
+
+* Neither the name of the copyright holder nor the names of its
+  contributors may be used to endorse or promote products derived from
+  this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+"""

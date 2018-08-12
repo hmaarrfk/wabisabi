@@ -1,4 +1,4 @@
-deprecation_factory
+Deprecation factory
 ===================
 
 .. currentmodule:: deprecation_factory
