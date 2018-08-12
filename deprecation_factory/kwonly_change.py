@@ -31,11 +31,11 @@ def kwonly_change(version,
     Issue a warnign pointing to the user's code if they call a function with
     too many positional arguments.
 
-    If you want to move the new keyword only arguments after the ``*, ``, you
-    should specify a list with the previous order of arguments as the parameter
-    ``previous_arg_order``. If this parameter is not specified, it is assumed
-    that the previous function signature allowed all parameters to be specified
-    as either positional or keyword arguments.
+    If you want to move the new keyword only arguments after the keyword
+    only seperator, you should specify a list with the previous order of
+    arguments as the parameter ``previous_arg_order``. If this parameter is
+    not specified, it is assumed that the previous function signature allowed
+    all parameters to be specified as either positional or keyword arguments.
 
     Parameters
     ----------
