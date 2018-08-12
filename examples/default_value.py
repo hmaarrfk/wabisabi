@@ -37,7 +37,7 @@ def foo(this='that'):
 
 
 @default_parameter_change('0.16', this='tim')
-def foo_deprecated(this='that'):
+def foo_deprecated(two=2, this='that', one=1):
     """Prints your parameter.
 
     **This function has a depeprecation decorator set to '0.16'**
@@ -85,6 +85,25 @@ def foo_two_params_deprecating(bar='hello', baz='world'):
 
 
 def foo_two_params(bar='hello', baz='world'):
+    """Joins two strings with a space between them.
+
+    **This function has a no deprecation decorator.**
+
+    Parameters
+    ----------
+    bar : str
+        The first word to join.
+
+    baz : str
+        The second word to join.
+
+    """
+    return bar + ' ' + baz
+
+
+@default_parameter_change('0.17', baz='monde')
+@default_parameter_change('0.16', bar='bonjour')
+def foo_two_params_redux(bar='hello', baz='world'):
     """Joins two strings with a space between them.
 
     **This function has a no deprecation decorator.**
