@@ -120,4 +120,4 @@ def foo_docs(a='a', *, b='b'):
 
 def test_doc():
     assert "Warns" in foo_docs.__doc__
-    assert "['b']" in foo_docs.__doc__
+    assert "`b`" in foo_docs.__doc__

@@ -204,7 +204,7 @@ def test_foo2_docs():
     assert 'FutureWarning' == docs['Warns'][0][0]
     assert "`bar` : `'bonjour'` -> `'hello'`" in '\n'.join(docs['Warns'][0][2])
     assert "`baz` : `'monde'` -> `'world'`" in '\n'.join(docs['Warns'][0][2])
-    assert "`'hello'`\n\n `baz`" in '\n'.join(docs['Warns'][0][2])
+    assert "`'hello'`\n\n  `baz`" in '\n'.join(docs['Warns'][0][2])
     assert foo2_with_docs_13.__doc__ == foo2_with_docs.__doc__
 
     with warns(FutureWarning, match='In release 0.15 of mylib'):
