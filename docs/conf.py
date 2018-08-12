@@ -20,6 +20,9 @@
 #
 import os
 import sys
+
+sys.path.insert(0, os.path.abspath('../deprecation_factory'))
+sys.path.insert(0, os.path.abspath('../examples'))
 sys.path.insert(0, os.path.abspath('..'))
 
 import deprecation_factory
@@ -53,9 +56,9 @@ source_parsers = {
 master_doc = 'index'
 
 # General information about the project.
-project = u'Deprecation Factory'
-copyright = u"2018, Mark Harfouche"
-author = u"Mark Harfouche"
+project = 'Deprecation Factory'
+copyright = "2018, Mark Harfouche"
+author = "Mark Harfouche"
 
 # The version info for the project you're documenting, acts as replacement
 # for |version| and |release|, also used in various other places throughout
@@ -76,7 +79,7 @@ language = None
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This patterns also effect to html_static_path and html_extra_path
-exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
+exclude_patterns = []
 
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = 'sphinx'
@@ -90,7 +93,6 @@ todo_include_todos = False
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-# html_theme = 'alabaster'
 html_theme = 'sphinx_rtd_theme'
 
 # Theme options are theme-specific and customize the look and feel of a

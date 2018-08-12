@@ -1,7 +1,13 @@
 Usage examples
 ==============
 
-.. automodule::  examples.kwarg_default_deprecation
+.. automodule::  default_value
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+.. automodule::  kwonly
     :members:
     :undoc-members:
     :show-inheritance:

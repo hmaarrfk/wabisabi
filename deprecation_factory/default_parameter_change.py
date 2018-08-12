@@ -4,37 +4,7 @@ I suggest you vendor this so that you don't create conflicts if other
 libraries decide to use an older, incompatible version
 
 If you are shipping python source code, then I've included the license
-as part of this header to make your life easier.
-
-BSD 3-Clause License
-
-Copyright (c) 2018, Mark Harfouche
-All rights reserved.
-
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met:
-
-* Redistributions of source code must retain the above copyright notice, this
-  list of conditions and the following disclaimer.
-
-* Redistributions in binary form must reproduce the above copyright notice,
-  this list of conditions and the following disclaimer in the documentation
-  and/or other materials provided with the distribution.
-
-* Neither the name of the copyright holder nor the names of its
-  contributors may be used to endorse or promote products derived from
-  this software without specific prior written permission.
-
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+at the bottom of this file to make your life easier.
 """
 
 from distutils.version import LooseVersion as Version
@@ -54,16 +24,17 @@ def default_parameter_change(version,
     If the software version is greater or equal to that of ``version``, this
     decorator returns the original function without any modifications.
 
-    It will warn the user, pointing to the line of his code, in a single
-    warning for all changes in the default parameters.
+    If the user doesn't specify a parameter that will change default values,
+    it will issue a ``FutureWarning`` pointing to the line of his code,
+    in a single warning for all changes in the default parameters.
 
-    This decorator does the following:
-        - Adds a human readable message whenever the function is invoked
-          without specifying the deprecated keyword argument.
-        - It modifies the ``__signature__`` of the function so that signature
-          reflects the default parameters.
-        - Modifies the docstring so as to include a warning about the
-          deprecation information compatible numpydoc.
+
+    It also modifies the ``__signature__`` of the function so that the
+    function appears to have the default parameters to whatever the default
+    values are in the current version of the function.
+
+    Finally, if a docstring is provided, it appends a warning
+    message compatible numpydoc.
 
     Parameters
     ----------
@@ -79,7 +50,9 @@ def default_parameter_change(version,
         The current version of your library.
 
     old_kwargs:
-        The keyword arguments with their old default values.
+        The list of keyword arguments, with their old default values
+        specified, as keyword arguments themselves. You should be able to
+        copy paste this straight from your previous function call.
 
     """
     def the_decorator(func):
@@ -87,13 +60,12 @@ def default_parameter_change(version,
             return func
 
         new_signature = inspect.signature(func)
-        funcname = func.__name__
         base_message = ('In release {version} of {module}, the function '
                         '``{funcname}`` '
                         'will have new default parameters. To avoid this '
                         'warning specify the value of all listed arguments.'
                         '\n\n'.format(version=version, module=library_name,
-                                      funcname=funcname))
+                                      funcname=func.__name__))
 
         old_parameters = [
             inspect.Parameter(
@@ -158,7 +130,7 @@ FutureWarning
     new values for the following keyword arguments:
 
 """.format(version=version, module=library_name,
-           funcname=funcname) + doc_deprecated_kwargs + """
+           funcname=func.__name__) + doc_deprecated_kwargs + """
 
    To avoid this warning in your code, specify the value of all listed
    keyword arguments.
@@ -175,3 +147,35 @@ FutureWarning
 
         return wrapper
     return the_decorator
+
+"""
+BSD 3-Clause License
+
+Copyright (c) 2018, Mark Harfouche
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+* Redistributions of source code must retain the above copyright notice, this
+  list of conditions and the following disclaimer.
+
+* Redistributions in binary form must reproduce the above copyright notice,
+  this list of conditions and the following disclaimer in the documentation
+  and/or other materials provided with the distribution.
+
+* Neither the name of the copyright holder nor the names of its
+  contributors may be used to endorse or promote products derived from
+  this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+"""
