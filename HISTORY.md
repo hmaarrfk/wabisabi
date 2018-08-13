@@ -1,6 +1,10 @@
 # History
 
-## 0.2.2 (2018.08.13)
+## 0.2.4 (2018.08.13)
+* Apparently numpydoc 0.6 didn't have a `__version__` attribute....
+
+
+## 0.2.3 (2018.08.13)
 
 * Check for numpydoc 0.7
 * Fix a typo in the docstring message
