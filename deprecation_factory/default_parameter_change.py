@@ -15,6 +15,8 @@ import textwrap
 
 from warnings import warn
 
+from .merge_docstrings import merge_docstrings
+
 
 def default_parameter_change(version,
                              library_name, current_library_version,
@@ -111,10 +113,13 @@ def default_parameter_change(version,
             return wrapper
 
         doc_deprecated_kwargs = ''
+        # Iterating through a list is tedius, though it is the only way to
+        # ensure things stay in order in python <=3.6
         for param in old_parameters:
             key = param.name
+            if key not in old_kwargs:
+                continue
             old_value = param.default
-
             new_value = new_signature.parameters[key].default
             doc_deprecated_kwargs = (
                 doc_deprecated_kwargs +
@@ -126,27 +131,20 @@ def default_parameter_change(version,
 Warns
 -----
 FutureWarning
-    In release {version} of {module}, this function will take on
-    new values for the following keyword arguments:
+  In release {version} of {module}, this function will take on
+  new values for the following keyword arguments:
 
 """.format(version=version, module=library_name,
            funcname=func.__name__) + doc_deprecated_kwargs + """
 
-   To avoid this warning in your code, specify the value of all listed
-   keyword arguments.
+  To avoid this warning in your code, specify the value of all listed
+  keyword arguments.
 
 """
-
-        parameters_line = re.search('.*Parameters$', wrapper.__doc__,
-                                    flags=re.MULTILINE)
-        if parameters_line is not None:
-            indentation_amount = parameters_line.group().find('P')
-            warnings_string = textwrap.indent(
-                warnings_string, ' ' * indentation_amount)
-        wrapper.__doc__ = wrapper.__doc__ + warnings_string
-
+        wrapper.__doc__ = merge_docstrings(wrapper, warnings_string)
         return wrapper
     return the_decorator
+
 
 """
 BSD 3-Clause License

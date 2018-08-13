@@ -10,10 +10,8 @@ at the bottom of this file to make your life easier.
 from distutils.version import LooseVersion as Version
 from functools import wraps
 import inspect
-import re
-import textwrap
-import inspect
 from warnings import warn
+from .merge_docstrings import merge_docstrings
 
 POSITIONAL_OR_KEYWORD = inspect.Parameter.POSITIONAL_OR_KEYWORD
 
@@ -156,28 +154,25 @@ def kwonly_change(version,
         if keep_old_signature:
             wrapper.__signature__ = old_signature
 
+        # only add a docstring if they had one already
+        if wrapper.__doc__ is None:
+            return wrapper
+
         warnings_string = """
 Warns
 -----
 FutureWarning
-    In release {version} of {module}, this the arguments:
+  In release {version} of {module}, this the arguments:
 
-        {args}
+    `{args}`
 
-    will become keyword-only arguments. To avoid this warning,
-    provide all the above arguments as keyword arguments.
+  will become keyword-only arguments. To avoid this warning,
+  provide all the above arguments as keyword arguments.
 
 """.format(version=version, module=library_name,
-           funcname=func.__name__, args=old_arg_names[new_nargs:])
+           funcname=func.__name__, args=', '.join(old_arg_names[new_nargs:]))
 
-        if wrapper.__doc__ is not None:
-            parameters_line = re.search('.*Parameters$', wrapper.__doc__,
-                                        flags=re.MULTILINE)
-            if parameters_line is not None:
-                indentation_amount = parameters_line.group().find('P')
-                warnings_string = textwrap.indent(
-                    warnings_string, ' ' * indentation_amount)
-            wrapper.__doc__ = wrapper.__doc__ + warnings_string
+        wrapper.__doc__ = merge_docstrings(wrapper, warnings_string)
         return wrapper
     return the_decorator
 
