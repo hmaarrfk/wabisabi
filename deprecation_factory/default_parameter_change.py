@@ -113,7 +113,13 @@ def default_parameter_change(version,
             return wrapper
 
         doc_deprecated_kwargs = ''
-        for key, old_value in old_kwargs.items():
+        # Iterating through a list is tedius, though it is the only way to
+        # ensure things stay in order in python <=3.6
+        for param in old_parameters:
+            key = param.name
+            if key not in old_kwargs:
+                continue
+            old_value = param.default
             new_value = new_signature.parameters[key].default
             doc_deprecated_kwargs = (
                 doc_deprecated_kwargs +
@@ -138,6 +144,7 @@ FutureWarning
         wrapper.__doc__ = merge_docstrings(wrapper, warnings_string)
         return wrapper
     return the_decorator
+
 
 """
 BSD 3-Clause License

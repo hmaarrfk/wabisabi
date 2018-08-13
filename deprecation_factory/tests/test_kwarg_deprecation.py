@@ -4,7 +4,6 @@ import warnings
 import inspect
 import pytest
 from pytest import warns
-from numpydoc.docscrape import FunctionDoc
 
 
 parametrize = pytest.mark.parametrize
@@ -160,16 +159,30 @@ def foo_with_docs(bar='hello'):
     return bar
 
 
-foo_with_docs_15 = default_parameter_change('0.15', bar='world')(foo_with_docs)
+# Something needs to use the decorator syntax or I might make
+# a tool that can't be used the way I want it to.
+@default_parameter_change('0.15', bar='world')
+def foo_with_docs_15(bar='hello'):
+    """This is a function foo!
+
+    It has some docs, isn't this cool!
+
+    Parameters
+    ----------
+    bar: str
+        This is a parameter.
+
+    """
+    return bar
+
+
 foo_with_docs_13 = default_parameter_change('0.13', bar='world')(foo_with_docs)
 
 
 def test_foo_docs():
     assert 'Warns' in foo_with_docs_15.__doc__
-    docs = FunctionDoc(foo_with_docs_15)
-    assert 'Warns' in docs
-    assert 'FutureWarning' == docs['Warns'][0][0]
-    assert "`bar` : `'world'` -> `'hello'`" in '\n'.join(docs['Warns'][0][2])
+    assert 'FutureWarning' in foo_with_docs_15.__doc__
+    assert "`bar` : `'world'` -> `'hello'`" in foo_with_docs_15.__doc__
 
     assert foo_with_docs_13.__doc__ == foo_with_docs.__doc__
 
@@ -199,12 +212,9 @@ foo2_with_docs_13 = default_parameter_change(
 
 def test_foo2_docs():
     assert 'Warns' in foo2_with_docs_15.__doc__
-    docs = FunctionDoc(foo2_with_docs_15)
-    assert 'Warns' in docs
-    assert 'FutureWarning' == docs['Warns'][0][0]
-    assert "`bar` : `'bonjour'` -> `'hello'`" in '\n'.join(docs['Warns'][0][2])
-    assert "`baz` : `'monde'` -> `'world'`" in '\n'.join(docs['Warns'][0][2])
-    assert "`'hello'`\n\n  `baz`" in '\n'.join(docs['Warns'][0][2])
+    assert 'FutureWarning' in foo2_with_docs_15.__doc__
+    assert "`bar` : `'bonjour'` -> `'hello'`" in foo2_with_docs_15.__doc__
+    assert "`baz` : `'monde'` -> `'world'`" in foo2_with_docs_15.__doc__
     assert foo2_with_docs_13.__doc__ == foo2_with_docs.__doc__
 
     with warns(FutureWarning, match='In release 0.15 of mylib'):

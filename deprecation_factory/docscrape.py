@@ -86,7 +86,6 @@ class FunctionDoc(_FunctionDoc):
         return self
 
 
-
 """
 
 The __str__, _str_index, and __str_see_also methods are slightly modified
@@ -95,7 +94,8 @@ versions of the methods that belong to the numpydoc developmenet team.
 This copyright applies to those 3 methods listed above.
 
 
-Copyright (C) 2008 Stefan van der Walt <stefan@mentat.za.net>, Pauli Virtanen <pav@iki.fi>
+Copyright (C) 2008 Stefan van der Walt <stefan@mentat.za.net>,
+Pauli Virtanen <pav@iki.fi>
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are

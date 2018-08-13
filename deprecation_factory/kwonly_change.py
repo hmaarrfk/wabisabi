@@ -10,9 +10,6 @@ at the bottom of this file to make your life easier.
 from distutils.version import LooseVersion as Version
 from functools import wraps
 import inspect
-import re
-import textwrap
-import inspect
 from warnings import warn
 from .merge_docstrings import merge_docstrings
 
@@ -156,6 +153,10 @@ def kwonly_change(version,
 
         if keep_old_signature:
             wrapper.__signature__ = old_signature
+
+        # only add a docstring if they had one already
+        if wrapper.__doc__ is None:
+            return wrapper
 
         warnings_string = """
 Warns

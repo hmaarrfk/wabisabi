@@ -1,3 +1,6 @@
+import re
+import textwrap
+
 
 def merge_docstrings(func, additional_doc):
     try:
