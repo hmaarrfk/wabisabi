@@ -12,7 +12,8 @@ def merge_docstrings(func, additional_doc):
 
         return str(final_docs)
     except ImportError:
-        return func.__doc__ + additional_doc
+        return func.__doc__ + guess_indentation(func.__doc__,
+                                                additional_doc)
 
 
 def guess_indentation(function_doc, additional_doc):
