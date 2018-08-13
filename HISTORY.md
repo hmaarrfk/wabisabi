@@ -1,5 +1,10 @@
 # History
 
+## 0.2.2 (2018.08.13)
+
+* Check for numpydoc 0.7
+* Fix a typo in the docstring message
+
 ## 0.2.2 (2018.08.12)
 
 * API change. change_default_parameter now takes a dictionary for the
