@@ -39,26 +39,27 @@ changes again.
 
 The goal of this library is to allow you to shortcut steps 3-9. You shouldn't
 have to revisit the deprecation long after you completed implementing your new
-features
+features. You write your code how it is **supposed to look**, this library,
+makes ensures your users have enough time to update their code.
 
-This library modifies function signatures and docstrings to make the current
-version of the function appear in autocompletions and on the automatically
-generated documentation.
+This library
 
-The library will point the user to **their** line of code, so that they can
-make the appropriate modifications.
-
-It is even safe to leave the deprecators in place after the threshold version
-has been reached. The decorator will behave as a no-op and your library will
-use the updated version of your code. Deprecations should not have to be
-blockers for your development.
+  * Modifies function signatures so to ensure correctness for the current
+    version. This should help with autocompletions.
+  * Adds a warning section to the docstrings. An attempt is made to properly
+    indent the docstring.
+  * Point the user to **their** line of code, so that they know where
+    to make make the appropriate modification.
+  * Leaving deprecators in place after the desired threshold results in a noop.
+    This means that you can be lazy about ripping them out of code.
+    Deprecations should not have to be blockers for your development.
+  * If numpydoc > 0.7 is installed, the "Warns" sections are combined into
+    a single section allowing you to chain deprecators.
 
 ## Installation
 
 While you can depend on this, I strongly recommend you version the files you
 need in your project as the API is highly likely to change and break your code.
-
-Make sure you keep a BSD notice in your code when you version this.
 
 ## Current deprecators
 
@@ -68,6 +69,7 @@ Make sure you keep a BSD notice in your code when you version this.
 
 ## Future deprecators
 
+  * `kwarg` renaming
   * Swapping the order of positional arguments
   * Making an old `kwarg` a manditory positional `arg`
   * Feature requests are welcome!

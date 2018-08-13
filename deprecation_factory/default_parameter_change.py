@@ -99,12 +99,15 @@ def default_parameter_change(version, old_kwargs,
             issue_warning = False
             message = base_message
             for key, old_value in old_kwargs.items():
+                # Check if the argument was provided as a
+                # positional argument
                 if (new_signature.parameters[key].kind is
                         inspect._POSITIONAL_OR_KEYWORD):
                     arg_pos = func_args.index(key)
                     if len(args) > arg_pos:
                         continue
 
+                # check if it was provided as a kwarg
                 if key in kwargs:
                     continue
                 new_value = new_signature.parameters[key].default
@@ -148,7 +151,7 @@ Warns
 -----
 FutureWarning
   In release {version} of {module}, this function will take on
-  new values for the following keyword arguments:
+  new default value(s) for the following keyword argument(s):
 
 """.format(version=version, module=library_name,
            funcname=func.__name__) + doc_deprecated_kwargs + """
