@@ -145,7 +145,7 @@ def test_foo2_signature():
     assert sig_13.parameters['c'].default == 'c'
 
 
-def foo_with_docs(bar='hello'):
+def foo_with_docs(bar='hello', zip='zap'):
     """This is a function foo!
 
     It has some docs, isn't this cool!
@@ -162,7 +162,7 @@ def foo_with_docs(bar='hello'):
 # Something needs to use the decorator syntax or I might make
 # a tool that can't be used the way I want it to.
 @default_parameter_change('0.15', bar='world')
-def foo_with_docs_15(bar='hello'):
+def foo_with_docs_15(bar='hello', zip='zap'):
     """This is a function foo!
 
     It has some docs, isn't this cool!
@@ -183,11 +183,13 @@ def test_foo_docs():
     assert 'Warns' in foo_with_docs_15.__doc__
     assert 'FutureWarning' in foo_with_docs_15.__doc__
     assert "`bar` : `'world'` -> `'hello'`" in foo_with_docs_15.__doc__
+    assert "zip" not in foo_with_docs_15.__doc__
 
     assert foo_with_docs_13.__doc__ == foo_with_docs.__doc__
 
     with warns(FutureWarning, match='In release 0.15 of mylib'):
         assert foo_with_docs_15() == 'world'
+    assert foo_with_docs() == 'hello'
 
 
 def foo2_with_docs(bar='hello', baz='world'):

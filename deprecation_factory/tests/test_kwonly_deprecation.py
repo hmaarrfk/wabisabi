@@ -87,10 +87,15 @@ def test_foo_hard():
     with raises(TypeError, match=r'.* takes 3 positional arguments'):
         foo_hard_no_sig_change(1, 1, 1, 1)
 
+    assert (foo_hard_new(a=1, b=2, c=3, d=4) ==
+            foo_hard_no_sig_change(a=1, b=2, c=3, d=4))
+
 
 def test_foo_signature_change():
     assert (inspect.signature(foo_hard_sig_change) ==
             inspect.signature(foo_hard_old))
+    assert (foo_hard_new(a=1, b=2, c=3, d=4) ==
+            foo_hard_sig_change(a=1, b=2, c=3, d=4))
 
 
 def foo_easy_already_deprecated(*, a=6):
