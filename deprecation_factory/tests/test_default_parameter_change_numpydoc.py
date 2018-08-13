@@ -28,8 +28,10 @@ def foo_with_docs(bar='hello'):
     return bar
 
 
-foo_with_docs_15 = default_parameter_change('0.15', bar='world')(foo_with_docs)
-foo_with_docs_13 = default_parameter_change('0.13', bar='world')(foo_with_docs)
+foo_with_docs_15 = default_parameter_change('0.15',
+                                            dict(bar='world'))(foo_with_docs)
+foo_with_docs_13 = default_parameter_change('0.13',
+                                            dict(bar='world'))(foo_with_docs)
 
 
 def test_foo_docs():
@@ -60,9 +62,9 @@ def foo2_with_docs(bar='hello', baz='world'):
 
 
 foo2_with_docs_15 = default_parameter_change(
-    '0.15', bar='bonjour', baz='monde')(foo2_with_docs)
+    '0.15', dict(bar='bonjour', baz='monde'))(foo2_with_docs)
 foo2_with_docs_13 = default_parameter_change(
-    '0.13', bar='bonjour', baz='monde')(foo2_with_docs)
+    '0.13', dict(bar='bonjour', baz='monde'))(foo2_with_docs)
 
 
 def test_foo2_docs():

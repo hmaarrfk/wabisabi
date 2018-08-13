@@ -102,6 +102,19 @@ def foo_easy_already_deprecated(*, a=6):
     return a
 
 
+def test_raises():
+    from deprecation_factory import kwonly_change
+
+    # Without a current_library_version
+    with raises(ValueError):
+        kwonly_change('15', library_name='mylib')(foo_easy_already_deprecated)
+
+    # Without a library_name
+    with raises(ValueError):
+        kwonly_change('15', current_library_version='0.1')(
+            foo_easy_already_deprecated)
+
+
 def test_already_deprecated():
     foo_easy_should_not_change = kwonly_change('0.1')(
         foo_easy_already_deprecated)

@@ -18,9 +18,8 @@ from warnings import warn
 from .merge_docstrings import merge_docstrings
 
 
-def default_parameter_change(version,
-                             library_name, current_library_version,
-                             **old_kwargs):
+def default_parameter_change(version, old_kwargs,
+                             library_name, current_library_version):
     """Deprecates a default value for a kwarg.
 
     If the software version is greater or equal to that of ``version``, this
@@ -45,16 +44,33 @@ def default_parameter_change(version,
         If the software version reaches this value, the new default will be
         taken on without warning.
 
+    old_kwargs:
+        The list of keyword arguments, with their old default values
+        specified, as a dictionary. You should be able to
+        copy paste your old keyword arguments and put then in a `dict`.
+
     library_name : str
         The human readable name for your library.
 
     current_library_version : version-like
         The current version of your library.
 
-    old_kwargs:
-        The list of keyword arguments, with their old default values
-        specified, as keyword arguments themselves. You should be able to
-        copy paste this straight from your previous function call.
+    Examples
+    --------
+    >>> @default_parameter_change('0.16', doc(this='tim'))
+    ... def foo(this='foo', bar='zip'):
+    ...     '''Prints your parameter.
+    ...
+    ...     **This function has a depeprecation decorator set to '0.16'**
+    ...
+    ...     Parameters
+    ...     ----------
+    ...     this : str
+    ...         This is the string parameter that should be printed
+    ...
+    ...     '''
+    ...     print(bar)
+    ...     return this
 
     """
     def the_decorator(func):

@@ -23,7 +23,7 @@ def test_dummy():
 
 @parametrize('version_above', ['0.14.1', '0.14.dev', '0.14.0', '0.15', '1.0'])
 def test_deprecating(version_above):
-    foo_0_15 = default_parameter_change(version_above, bar='bar')(foo)
+    foo_0_15 = default_parameter_change(version_above, dict(bar='bar'))(foo)
     with warns(FutureWarning,
                match='In release {} of mylib'.format(version_above)) as record:
         assert foo_0_15() == 'bar'
@@ -36,7 +36,7 @@ def test_deprecating(version_above):
 
 @parametrize('version_above', ['0.14.1', '0.14.dev', '0.14.0', '0.15', '1.0'])
 def test_deprecating_param_provided(version_above):
-    foo_0_15 = default_parameter_change(version_above, bar='bar')(foo)
+    foo_0_15 = default_parameter_change(version_above, dict(bar='bar'))(foo)
     with warnings.catch_warnings():
         warnings.simplefilter("error")
         assert foo_0_15(bar='bar23') == 'bar23'
@@ -47,7 +47,7 @@ def test_deprecating_param_provided(version_above):
 
 
 def test_deprecated():
-    foo_0_13 = default_parameter_change('0.13', bar='bar')(foo)
+    foo_0_13 = default_parameter_change('0.13', dict(bar='bar'))(foo)
 
     assert inspect.signature(foo) == inspect.signature(foo_0_13)
     assert foo == foo_0_13
@@ -60,8 +60,8 @@ def foo2(a, b='b', c='c'):
     return a + b + c
 
 
-foo2_0_15 = default_parameter_change('0.15', b='B', c='C')(foo2)
-foo2_0_13 = default_parameter_change('0.13', b='B', c='C')(foo2)
+foo2_0_15 = default_parameter_change('0.15', dict(b='B', c='C'))(foo2)
+foo2_0_13 = default_parameter_change('0.13', dict(b='B', c='C'))(foo2)
 
 
 def test_deprecating2():
@@ -161,7 +161,7 @@ def foo_with_docs(bar='hello', zip='zap'):
 
 # Something needs to use the decorator syntax or I might make
 # a tool that can't be used the way I want it to.
-@default_parameter_change('0.15', bar='world')
+@default_parameter_change('0.15', dict(bar='world'))
 def foo_with_docs_15(bar='hello', zip='zap'):
     """This is a function foo!
 
@@ -176,7 +176,8 @@ def foo_with_docs_15(bar='hello', zip='zap'):
     return bar
 
 
-foo_with_docs_13 = default_parameter_change('0.13', bar='world')(foo_with_docs)
+foo_with_docs_13 = default_parameter_change('0.13', dict(bar='world'))(
+    foo_with_docs)
 
 
 def test_foo_docs():
@@ -207,9 +208,9 @@ def foo2_with_docs(bar='hello', baz='world'):
 
 
 foo2_with_docs_15 = default_parameter_change(
-    '0.15', bar='bonjour', baz='monde')(foo2_with_docs)
+    '0.15', dict(bar='bonjour', baz='monde'))(foo2_with_docs)
 foo2_with_docs_13 = default_parameter_change(
-    '0.13', bar='bonjour', baz='monde')(foo2_with_docs)
+    '0.13', dict(bar='bonjour', baz='monde'))(foo2_with_docs)
 
 
 def test_foo2_docs():

@@ -1,5 +1,14 @@
 # History
 
+## 0.2.2 (2018.08.12)
+
+* API change. change_default_parameter now takes a dictionary for the
+  old_kwargs so that parameter names don't conflict
+
+## 0.2.1 (2018.08.12)
+
+* Merge with other numpydocs so that documentation in Sphinx doesn't crash
+
 ## 0.2.0 (2018.08.11)
 
 * Provide a deprecator for changing the number  of keyword only arguments.

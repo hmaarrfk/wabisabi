@@ -16,11 +16,8 @@ from .merge_docstrings import merge_docstrings
 POSITIONAL_OR_KEYWORD = inspect.Parameter.POSITIONAL_OR_KEYWORD
 
 
-def kwonly_change(version,
-                  library_name,
-                  current_library_version,
-                  previous_arg_order=None,
-                  keep_old_signature=False):
+def kwonly_change(version, previous_arg_order=None, keep_old_signature=False,
+                  library_name=None, current_library_version=None):
     """Returns a decorator that enforces a smaller of positional arguments.
 
     If the current library version is smaller than version in which the new
@@ -40,13 +37,6 @@ def kwonly_change(version,
     version: version-like
         Version in which the new function signature takes full effect.
 
-    library_name: str
-        Friendly library name to include in warning messages
-
-    current_library_version: version-like
-        The current version of the shipped library (typically your module's
-        ``__version__``).
-
     previous_arg_order: list of strings or ``None``
         If the function previously had keyword only arguments, you should use
         this to specify the names of previous positional arguments. If set
@@ -56,14 +46,40 @@ def kwonly_change(version,
         To re-iterate, you cannot swap the order of positional arguments with
         this deprecator.
 
-
     keep_old_signature: bool
         If set to true, the signature will reflect the previous signature of
         the function. This is not recommended since showing new users the
         keyword-only version of the signature will not cause them to write
         wrong code. If they follow the new signature, their code will be
         correct and they will avoid the ``FutureWarning``.
+
+    library_name: str
+        Friendly library name to include in warning messages
+
+    current_library_version: version-like
+        The current version of the shipped library (typically your module's
+        ``__version__``).
+
+    Examples
+    --------
+
+    >>> from deprecation_factory import kwonly_change
+    >>> import functools
+    >>>
+    >>> kwonly_change = functools.partial(kwonly_change,
+    ...                                   library_name='my super lib',
+    ...                                   current_library_version='0.14')
+    >>> @kwonly_change('0.15')
+    ... def foo_new(zap='zip', *, bar='hello', baz='world'):
+    ...     return zap + bar + baz
+
     """
+    if current_library_version is None:
+        raise ValueError('Must provide a version for your library.')
+
+    if library_name is None:
+        raise ValueError('You must provide a user friendly name for your '
+                         'library.')
 
     def the_decorator(func):
         if Version(current_library_version) >= version:
