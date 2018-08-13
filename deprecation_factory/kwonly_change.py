@@ -16,6 +16,9 @@ from .merge_docstrings import merge_docstrings
 POSITIONAL_OR_KEYWORD = inspect.Parameter.POSITIONAL_OR_KEYWORD
 
 
+# Keep the order of params as is,
+# `previous_arg_order` and `keep_old_signature`
+# should be optional positional args.
 def kwonly_change(version, previous_arg_order=None, keep_old_signature=False,
                   library_name=None, current_library_version=None):
     """Returns a decorator that enforces a smaller of positional arguments.
@@ -157,7 +160,7 @@ def kwonly_change(version, previous_arg_order=None, keep_old_signature=False,
                 warn("In version {version} of {library_name}, the "
                      "argument(s): '{old_pos_args}' will become keyword-only "
                      "argument(s). To suppress this warning, specify all "
-                     "listed arguments with keywords."
+                     "listed argument(s) with keywords."
                      "".format(
                          version=version, library_name=library_name,
                          old_pos_args=old_arg_names[new_nargs:len(args)]),
@@ -178,7 +181,7 @@ def kwonly_change(version, previous_arg_order=None, keep_old_signature=False,
 Warns
 -----
 FutureWarning
-  In release {version} of {module}, this the arguments:
+  In release {version} of {module}, the argument(s):
 
     `{args}`
 
