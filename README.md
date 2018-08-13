@@ -27,7 +27,7 @@ similar to
   3. Add warnings INSIDE your function to warn users.
   4. Change the function signature to something non-sensical to detect the
      default behaviour.
-  5. Add messages in the documentation.
+  5. Add messages in the documentation (numpydoc compatible)
 
 Finally, when the behaviour is official depreprecated, you need to do all these
 changes again.
@@ -55,7 +55,7 @@ blockers for your development.
 
 ## Installation
 
-While you can depend on this, I strongly recommend you version the files you 
+While you can depend on this, I strongly recommend you version the files you
 need in your project as the API is highly likely to change and break your code.
 
 Make sure you keep a BSD notice in your code when you version this.
@@ -64,17 +64,13 @@ Make sure you keep a BSD notice in your code when you version this.
 
   * Deprecator for change of default values in `kwargs`. Handles `kwargs`
     passed as positional arguments too!
+  * Transitionning to keyword only arguments.
 
 ## Future deprecators
 
-  * Transitionning to keyword only arguments.
   * Swapping the order of positional arguments
   * Making an old `kwarg` a manditory positional `arg`
   * Feature requests are welcome!
-
-## Other directions
-
-  * Input sanitization.
 
 ## Development Lead
 
@@ -82,12 +78,12 @@ Make sure you keep a BSD notice in your code when you version this.
 
 ## Contributors
 
-None yet. Why not be the first?
+Could be you!
 
 
 ### How to contribute
 Ready to contribute? We use the standard github contribution model.
-Scikit-Image has a great
+scikit-image has a great
 [writeup](http://scikit-image.org/docs/dev/contribute.html) on how to setup
 your environment. Adapt it for our environment.
 
