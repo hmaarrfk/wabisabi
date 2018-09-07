@@ -11,7 +11,7 @@ Look at the doc page to see how your users would see your documetnation.
 
 """
 
-from deprecation_factory import default_parameter_change
+from wabisabi import default_parameter_change
 import functools
 
 

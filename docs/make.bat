@@ -9,7 +9,7 @@ if "%SPHINXBUILD%" == "" (
 )
 set SOURCEDIR=.
 set BUILDDIR=_build
-set SPHINXPROJ=deprecation_factory
+set SPHINXPROJ=wabisabi
 
 if "%1" == "" goto help
 

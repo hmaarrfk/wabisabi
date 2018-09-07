@@ -1,3 +1,3 @@
 [run]
 omit = versioneer.py \
- deprecation_factory/_version.py
+ wabisabi/_version.py

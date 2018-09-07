@@ -1,16 +1,16 @@
-# Deprecation Factory
+# wabisabi
 
-[![pypi](https://img.shields.io/pypi/v/deprecation_factory.svg)](https://pypi.python.org/pypi/deprecation_factory)
-[![Travis](https://img.shields.io/travis/hmaarrfk/deprecation_factory.svg)](https://travis-ci.org/hmaarrfk/deprecation_factory)
-[![Docs](https://readthedocs.org/projects/deprecation-factory/badge/?version=latest)](https://deprecation-factory.readthedocs.io/en/latest/?badge=latest)
+[![pypi](https://img.shields.io/pypi/v/wabisabi.svg)](https://pypi.python.org/pypi/wabisabi)
+[![Travis](https://img.shields.io/travis/hmaarrfk/wabisabi.svg)](https://travis-ci.org/hmaarrfk/wabisabi)
+[![Docs](https://readthedocs.org/projects/wabisabi/badge/?version=latest)](https://wabisabi.readthedocs.io/en/latest/?badge=latest)
 
 
-Python3 deprecation factory. Automatically write boilerplate code for many kinds
+Python3 wabisabi. Automatically write boilerplate code for many kinds
 of deperecations through python decorators.
 
 
   * Free software: [BSD license](LICENSE)
-  * [Documentation](https://deprecation-factory.readthedocs.io)
+  * [Documentation](https://wabisabi.readthedocs.io)
 
 
 ## Motivations

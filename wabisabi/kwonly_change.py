@@ -66,7 +66,7 @@ def kwonly_change(version, previous_arg_order=None, keep_old_signature=False,
     Examples
     --------
 
-    >>> from deprecation_factory import kwonly_change
+    >>> from wabisabi import kwonly_change
     >>> import functools
     >>>
     >>> kwonly_change = functools.partial(kwonly_change,
