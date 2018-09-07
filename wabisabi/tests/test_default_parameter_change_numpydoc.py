@@ -1,5 +1,5 @@
 import pytest
-from deprecation_factory import default_parameter_change
+from wabisabi import default_parameter_change
 from functools import partial
 from pytest import warns
 

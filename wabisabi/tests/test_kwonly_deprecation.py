@@ -1,4 +1,4 @@
-from deprecation_factory import kwonly_change
+from wabisabi import kwonly_change
 from functools import partial
 from pytest import warns, raises
 import inspect
@@ -103,7 +103,7 @@ def foo_easy_already_deprecated(*, a=6):
 
 
 def test_raises():
-    from deprecation_factory import kwonly_change
+    from wabisabi import kwonly_change
 
     # Without a current_library_version
     with raises(ValueError):
