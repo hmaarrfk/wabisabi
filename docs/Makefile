@@ -4,7 +4,7 @@
 # You can set these variables from the command line.
 SPHINXOPTS    =
 SPHINXBUILD   = python -msphinx
-SPHINXPROJ    = deprecation_factory
+SPHINXPROJ    = wabisabi
 SOURCEDIR     = .
 BUILDDIR      = _build
 

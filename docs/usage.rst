@@ -9,8 +9,8 @@ library name, and the current library version.
 In something like your project's ``utils`` file, you should include adapted
 versions of this code::
 
-    from deprecation_factory import kwonly_change
-    from deprecation_factory import default_parameter_change
+    from wabisabi import kwonly_change
+    from wabisabi import default_parameter_change
 
     from functools import partial
     from ..__init__ import __version__  # or the applicable line

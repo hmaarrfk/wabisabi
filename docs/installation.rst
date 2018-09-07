@@ -10,5 +10,5 @@ Deprecation Factory only depends on the Python standard library keeping it
 lightweight. This package is available both on `PyPi`_ and `conda-forge`_.
 
 
-.. _PyPi: https://pypi.org/project/deprecation-factory/
-.. _conda-forge: https://anaconda.org/conda-forge/deprecation-factory
+.. _PyPi: https://pypi.org/project/wabisabi/
+.. _conda-forge: https://anaconda.org/conda-forge/wabisabi/

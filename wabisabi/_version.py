@@ -42,8 +42,8 @@ def get_config():
     cfg.VCS = "git"
     cfg.style = "pep440"
     cfg.tag_prefix = ""
-    cfg.parentdir_prefix = "deprecation_factory-"
-    cfg.versionfile_source = "deprecation_factory/_version.py"
+    cfg.parentdir_prefix = "wabisabi-"
+    cfg.versionfile_source = "wabisabi/_version.py"
     cfg.verbose = False
     return cfg
 

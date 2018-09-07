@@ -7,7 +7,7 @@ arguments to keyword.
 
 """
 
-from deprecation_factory import kwonly_change
+from wabisabi import kwonly_change
 import functools
 
 

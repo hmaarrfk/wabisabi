@@ -1,7 +1,7 @@
-Deprecation factory
-===================
+wabisabi
+========
 
-.. currentmodule:: deprecation_factory
+.. currentmodule:: wabisabi
 
 .. autofunction:: default_parameter_change
 
