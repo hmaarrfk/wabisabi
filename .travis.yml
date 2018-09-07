@@ -15,9 +15,11 @@ deploy:
   distributions: sdist bdist_wheel
   user: hmaarrfk
   password:
-      secure: EaJfPZztY48CTFEb4T/FSpSzA+U03ahB4f1ajDft+HKZLUQjtHGY774DgMBvgylj+Qw+VUbMFFOUk5CgcuyovTMNFlWdgUTqVcnmiiipqK8HbanGE7v1aiSAhxNJw0D9ixarB2A7aR5Jaa8QejatB/uNA/SPrKhhOy7PmknYHBz+s9KVnllTGXcMnF0GWOQKOj2wC+svONXjSpzMwdeGFhZNl9jz82xEAui8UtHWbjGzXuc4djBiSNmjtHCnr3Aesq8DQWYmgL+BiWRUSsu+1jdACtllmAg32sULfZkWsE/36k6pGQC+aMjIn0P6Ta7flVrXisesxQ4/9wSiMbPziDTld+i/kC5bb3gbcz7SEU7051fjlSZaO/QkjikXVJmXdQr5TBlR5UM6KsKRKk3wW2822dbNHYPon3mn7EJP1vsHWJJ9g/6R1tRRJp/eVhVOnIhRDE3BDuSZix4bsAI5jXclK3Zels5VeynqOoxUksSgMv9UQi3UerW+gO/gSKwtin1dUBjY9nerNXFyPQkQtp7SNFBxx+TiS3UvWdxEpVdL48PZYubGTQTrhYF2Go1y8oHhjUf1vV4O1kCmO7CXsNSFUh/G3Y97J+8uet6QpnzdeZWZDDr8K4h/366NdUY9Cfk9R0WdRZSeLnSsB9bX1CGztaT0I0l3YzKtRHpi9N8=
+      secure: "GDZ23zDDx07diy26rfV21xcW65YuUwE6bPFc/cqyf0XMAdLuqPspwwVQS8CkoTX7rstM6+H2eMmOZBw57hwOhFGK5jNq4dc9DGxt+77TgZcSsdJfFhw04BL6c07Ppgs4S1eTDHhkktjutCPp8tl27m8sagJSqeEOyjPyw3MfH1w0Qs9puBZPs2FkCH8aR39F9MvlfM1jQSB7hhfkQBrxUCAsL9qbM5CPEUdB2v9s/HdALjOuofGUCWY9XNdGuH5tATUtNgldS98/8K+WdiHi0UcTEOek51ctvwu0L2ysD/rgVWwlzsDqXsNQp/pojnRakXDKZOSz2o+498dOY5laEMUVAVIKo+gfHtP00J3nEPSkwsvYJI4bkl5TqrXRkZt6PS8sWsrf2ghU5bZXcIjxlFxurXngcvJXQBpN998GEkJ3LgzVBUWHppvN6ARcp6FN8PZ6I6sFdIUFrP2Qz9PMnZY3o69F57Hp5j3LANwCFCOL13N6EIouaTxV617mWD1YXR2m9CCRcXdpk7jJCKAu11646XD0/dJsIlxY47yWVATshcUf9wbooOG6oEG/NQk1Z0xgTgixT4GdhkevP2wN4teSqQTf7kVOBYgKaQ4GVnBGPw4rx4/hKE/hzVoIzks4ueeKK26I67yhiJUDxhzJKnesS/9/iX8KTo084lJ1VWU="
   on:
     tags: true
-    repo: hmaarrfk/deprecation_factory
-    python: 3.6
+    repo: hmaarrfk/wabisabi
+    python:
+      - 3.5
+      - 3.6
 
