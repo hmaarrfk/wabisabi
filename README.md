@@ -11,6 +11,8 @@ of deperecations through python decorators.
 
   * Free software: [BSD license](LICENSE)
   * [Documentation](https://wabisabi.readthedocs.io)
+  
+  Link above not working for now: https://deprecation-factory.readthedocs.io/en/latest/?badge=latest
 
 
 ## Motivations
