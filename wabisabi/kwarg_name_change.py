@@ -18,19 +18,13 @@ from .merge_docstrings import merge_docstrings
 # should be optional positional args.
 def kwarg_name_change(version, previous_kwarg_map=None,
                       library_name=None, current_library_version=None):
-    """Returns a decorator that enforces a smaller of positional arguments.
+    """A decorator factory for keyword arguments to be specified by their old names.
 
     If the current library version is smaller than version in which the new
     signature takes effect, this deprecator will:
 
     Issue a warnign pointing to the user's code if they call a function with
     too many positional arguments.
-
-    If you want to move the new keyword only arguments after the keyword
-    only seperator, you should specify a list with the previous order of
-    arguments as the parameter ``previous_arg_order``. If this parameter is
-    not specified, it is assumed that the previous function signature allowed
-    all parameters to be specified as either positional or keyword arguments.
 
     Parameters
     ----------
