@@ -25,8 +25,11 @@ def test_too_easy():
 
 
 def too_easy_doubly_specified():
-    with raises(TypeError, match='refer to the same parameter'):
+    with raises(TypeError, match="'b' and 'a' refer to the same parameter."):
         foo_easy(b=1, a=6)
+
+    with raises(TypeError, match="'b' and 'a' refer to the same parameter."):
+        foo_easy(a=6, b=1)
 
 
 @kwarg_name_change('0.15', {'baz': 'b', 'dare': 'd'})
