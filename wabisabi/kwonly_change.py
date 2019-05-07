@@ -21,7 +21,7 @@ POSITIONAL_OR_KEYWORD = inspect.Parameter.POSITIONAL_OR_KEYWORD
 # should be optional positional args.
 def kwonly_change(version, previous_arg_order=None, keep_old_signature=False,
                   library_name=None, current_library_version=None):
-    """Returns a decorator that enforces a smaller of positional arguments.
+    """Returns a decorator that enforces a smaller number of positional arguments.
 
     If the current library version is smaller than version in which the new
     signature takes effect, this deprecator will:
