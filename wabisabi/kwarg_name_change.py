@@ -76,8 +76,8 @@ def kwarg_name_change(version, previous_kwarg_map=None,
                     kwargs[new_key] = kwargs.pop(key)
 
                     warn("In version {version} of {library_name}, the "
-                         "keyword argument: '{key}' will change names and "
-                         "to be specified using the '{new_key}'."
+                         "keyword argument '{key}' will be replaced by "
+                         "'{new_key}'. "
                          "To suppress this warning, specify the keyword "
                          "argument with its new name."
                          "".format(
