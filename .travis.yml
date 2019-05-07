@@ -25,7 +25,3 @@ deploy:
   on:
     tags: true
     repo: hmaarrfk/wabisabi
-    python:
-      - 3.5
-      - 3.6
-      - 3.7
