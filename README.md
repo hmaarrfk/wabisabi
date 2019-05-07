@@ -11,7 +11,7 @@ of deperecations through python decorators.
 
   * Free software: [BSD license](LICENSE)
   * [Documentation](https://wabisabi.readthedocs.io)
-  
+
   Link above not working for now: https://deprecation-factory.readthedocs.io/en/latest/?badge=latest
 
 
@@ -68,10 +68,10 @@ need in your project as the API is highly likely to change and break your code.
   * Deprecator for change of default values in `kwargs`. Handles `kwargs`
     passed as positional arguments too!
   * Transitionning to keyword only arguments.
+  * `kwarg` renaming
 
 ## Future deprecators
 
-  * `kwarg` renaming
   * Swapping the order of positional arguments
   * Making an old `kwarg` a manditory positional `arg`
   * Feature requests are welcome!
