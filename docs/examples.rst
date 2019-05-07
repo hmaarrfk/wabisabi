@@ -11,3 +11,8 @@ Usage examples
     :members:
     :undoc-members:
     :show-inheritance:
+    
+.. automodule::  kwarg_name
+    :members:
+    :undoc-members:
+    :show-inheritance:
