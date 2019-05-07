@@ -24,6 +24,14 @@ def test_too_easy():
         assert foo_easy(a=7) == 7
 
 
+def test_too_easy_doubly_specified():
+    with warns(FutureWarning, match='In version 0.15'):
+        with raises(TypeError, match="'b' and 'a' refer to the same parameter."):
+            foo_easy(b=1, a=6)
+
+        with raises(TypeError, match="'b' and 'a' refer to the same parameter."):
+            foo_easy(a=6, b=1)
+
 
 @kwarg_name_change('0.15', {'baz': 'b', 'dare': 'd'})
 def foo_medium(a, b=2, *, c=6, d=2):
@@ -31,7 +39,7 @@ def foo_medium(a, b=2, *, c=6, d=2):
 
 
 def test_foo_medium():
-    with raises(TypeError, match=r'.* missing 1 required positional argument'):
+    with raises(TypeError, match=r'missing 1 required positional argument'):
         foo_medium()
     assert foo_medium(0) == 0
     with warnings.catch_warnings():

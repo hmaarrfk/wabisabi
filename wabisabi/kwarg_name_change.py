@@ -70,22 +70,34 @@ def kwarg_name_change(version, previous_kwarg_map=None,
 
         @wraps(func)
         def wrapper(*args, **kwargs):
-            for key in kwargs.keys():
-                if key in previous_kwarg_map:
+            new_kwargs = {}
+            for key, value in kwargs.items():
+                if key not in previous_kwarg_map:
+                    new_key = key
+                else:
                     new_key = previous_kwarg_map[key]
-                    kwargs[new_key] = kwargs.pop(key)
 
                     warn("In version {version} of {library_name}, the "
-                         "keyword argument: '{key}' will change names and "
-                         "to be specified using the '{new_key}'."
+                         "keyword argument '{key}' will be replaced by "
+                         "'{new_key}'. "
                          "To suppress this warning, specify the keyword "
                          "argument with its new name."
                          "".format(
                             version=version, library_name=library_name,
                             key=key, new_key=new_key),
                          FutureWarning, stacklevel=2)
+                if new_key in new_kwargs:
+                    # Search for the old key.
+                    for old_key, n_key in previous_kwarg_map.items():
+                        if n_key == new_key:
+                            break
 
-            return func(*args, **kwargs)
+                    raise TypeError(
+                        "'{old_key}' and '{new_key}' refer to the same "
+                        "parameter. Using both is not allowed."
+                        "".format(old_key=old_key, new_key=new_key))
+                new_kwargs[new_key] = value
+            return func(*args, **new_kwargs)
 
         # only add a docstring if they had one already
         if wrapper.__doc__ is None:
