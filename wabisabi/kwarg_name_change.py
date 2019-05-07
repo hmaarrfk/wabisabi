@@ -89,9 +89,15 @@ def kwarg_name_change(version, previous_kwarg_map=None,
                             key=key, new_key=new_key),
                          FutureWarning, stacklevel=2)
                 if new_key in new_kwargs:
+                    # Search for the old key.
+                    for old_key, n_key in previous_kwarg_map:
+                        if n_key == new_key:
+                            break
+
                     raise TypeError(
-                        f"'{key}' and '{new_key}' refer to the same "
-                        "parameter. Using both is not allowed.")
+                        "'{old_key}' and '{new_key}' refer to the same "
+                        "parameter. Using both is not allowed."
+                        "".format(key=key, new_key=new_key))
                 new_kwargs[new_key] = value
             return func(*args, **new_kwargs)
 
