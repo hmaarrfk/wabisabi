@@ -24,6 +24,10 @@ def test_too_easy():
         assert foo_easy(a=7) == 7
 
 
+def too_easy_doubly_specified():
+    with raises(TypeError, match='refer to the same parameter'):
+        foo_easy(b=1, a=6)
+
 
 @kwarg_name_change('0.15', {'baz': 'b', 'dare': 'd'})
 def foo_medium(a, b=2, *, c=6, d=2):
