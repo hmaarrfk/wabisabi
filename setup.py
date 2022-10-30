@@ -4,7 +4,21 @@
 """The setup script."""
 
 from setuptools import setup, find_packages
-import versioneer
+
+
+# Loads _version.py module without importing the whole package.
+def get_version_and_cmdclass(pkg_path):
+    import os
+    from importlib.util import module_from_spec, spec_from_file_location
+    spec = spec_from_file_location(
+        'version', os.path.join(pkg_path, '_version.py'),
+    )
+    module = module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module.__version__, module.get_cmdclass(pkg_path)
+
+
+version, cmdclass = get_version_and_cmdclass('wabisabi')
 
 
 with open('README.md') as readme_file:
@@ -29,8 +43,10 @@ setup(
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
     ],
-    description=("Deprecate your code effortlessly with decorators. "
-                 "Give useful warnings and docstrings for different deprecations."),
+    description=(
+        "Deprecate your code effortlessly with decorators. "
+        "Give useful warnings and docstrings for different deprecations."
+    ),
     license="BSD license",
     long_description=readme + '\n\n' + history,
     long_description_content_type='text/markdown',
@@ -42,7 +58,7 @@ setup(
     setup_requires=['setuptools'],
     tests_require=test_requirements,
     url='https://github.com/hmaarrfk/wabisabi',
-    version=versioneer.get_version(),
-    cmdclass=versioneer.get_cmdclass(),
+    version=version,
+    cmdclass=cmdclass,
     zip_safe=False,
 )
