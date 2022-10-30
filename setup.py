@@ -38,6 +38,7 @@ setup(
     keywords='deprecation factory wabisabi',
     name='wabisabi',
     packages=find_packages(include=['wabisabi']),
+    install_requires=['packaging'],
     setup_requires=['setuptools'],
     tests_require=test_requirements,
     url='https://github.com/hmaarrfk/wabisabi',

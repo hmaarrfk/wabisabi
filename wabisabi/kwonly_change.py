@@ -7,7 +7,7 @@ If you are shipping python source code, then I've included the license
 at the bottom of this file to make your life easier.
 """
 
-from distutils.version import LooseVersion as Version
+from packaging.version import Version
 from functools import wraps
 import inspect
 from warnings import warn
@@ -85,7 +85,7 @@ def kwonly_change(version, previous_arg_order=None, keep_old_signature=False,
                          'library.')
 
     def the_decorator(func):
-        if Version(current_library_version) >= version:
+        if Version(current_library_version) >= Version(version):
             return func
         new_signature = inspect.signature(func)
 

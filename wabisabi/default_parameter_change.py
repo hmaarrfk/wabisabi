@@ -7,7 +7,7 @@ If you are shipping python source code, then I've included the license
 at the bottom of this file to make your life easier.
 """
 
-from distutils.version import LooseVersion as Version
+from packaging.version import Version
 from functools import wraps
 import inspect
 import re
@@ -74,7 +74,7 @@ def default_parameter_change(version, old_kwargs,
 
     """
     def the_decorator(func):
-        if Version(current_library_version) >= version:
+        if Version(current_library_version) >= Version(version):
             return func
 
         new_signature = inspect.signature(func)

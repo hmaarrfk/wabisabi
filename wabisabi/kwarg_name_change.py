@@ -7,7 +7,7 @@ If you are shipping python source code, then I've included the license
 at the bottom of this file to make your life easier.
 """
 
-from distutils.version import LooseVersion as Version
+from packaging.version import Version
 from functools import wraps
 import inspect
 from warnings import warn
@@ -65,7 +65,7 @@ def kwarg_name_change(version, previous_kwarg_map=None,
                          'library.')
 
     def the_decorator(func):
-        if Version(current_library_version) >= version:
+        if Version(current_library_version) >= Version(version):
             return func
 
         @wraps(func)
