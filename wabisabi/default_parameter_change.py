@@ -10,8 +10,6 @@ at the bottom of this file to make your life easier.
 from packaging.version import Version
 from functools import wraps
 import inspect
-import re
-import textwrap
 
 from warnings import warn
 

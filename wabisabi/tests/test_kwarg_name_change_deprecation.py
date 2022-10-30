@@ -1,7 +1,6 @@
 from wabisabi import kwarg_name_change
 from functools import partial
 from pytest import warns, raises
-import inspect
 import warnings
 
 __version__ = '0.14'
