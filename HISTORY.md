@@ -2,7 +2,7 @@
 
 ## 0.3.0 (2022.10.30)
 
-* Use packaging instead of distutils for version comaprison. Note that this
+* Use packaging instead of distutils for version comparison. Note that this
   might cause certain versions to fail. Notably, ``'0.1.dev3'`` is now older
   than ``'0.1'``.
 * Require Python 3.8.
