@@ -25,8 +25,8 @@ sys.path.insert(0, os.path.abspath('../wabisabi'))
 sys.path.insert(0, os.path.abspath('../examples'))
 sys.path.insert(0, os.path.abspath('..'))
 
-import wabisabi
-from recommonmark.parser import CommonMarkParser
+import wabisabi  # noqa
+from recommonmark.parser import CommonMarkParser  # noqa
 
 # -- General configuration ---------------------------------------------
 

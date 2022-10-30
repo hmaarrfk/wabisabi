@@ -7,11 +7,9 @@ If you are shipping python source code, then I've included the license
 at the bottom of this file to make your life easier.
 """
 
-from distutils.version import LooseVersion as Version
+from packaging.version import Version
 from functools import wraps
 import inspect
-import re
-import textwrap
 
 from warnings import warn
 
@@ -74,7 +72,7 @@ def default_parameter_change(version, old_kwargs,
 
     """
     def the_decorator(func):
-        if Version(current_library_version) >= version:
+        if Version(current_library_version) >= Version(version):
             return func
 
         new_signature = inspect.signature(func)
@@ -111,13 +109,12 @@ def default_parameter_change(version, old_kwargs,
                 if key in kwargs:
                     continue
                 new_value = new_signature.parameters[key].default
-                message = (message +
-                           '    The default value of ``{argname}`` '
-                           'will be changed from ``{old_value}`` to '
-                           '``{new_value}``. '
-                           '\n'.format(argname=key,
-                                       old_value=repr(old_value),
-                                       new_value=repr(new_value)))
+                message = (
+                    f'{message}    The default value of ``{key}`` '
+                    f'will be changed from ``{repr(old_value)}`` to '
+                    f'``{repr(new_value)}``. '
+                    '\n'
+                )
                 kwargs[key] = old_value
                 issue_warning = True
             if issue_warning:
@@ -141,20 +138,18 @@ def default_parameter_change(version, old_kwargs,
             old_value = param.default
             new_value = new_signature.parameters[key].default
             doc_deprecated_kwargs = (
-                doc_deprecated_kwargs +
-                '    `{argname}` : `{old_value}` -> `{new_value}`'
-                '\n\n'.format(argname=key,
-                              old_value=old_value.__repr__(),
-                              new_value=new_value.__repr__()))
-        warnings_string = """
+                f'{doc_deprecated_kwargs}    `{key}` : '
+                f'`{repr(old_value)}` -> `{repr(new_value)}`'
+                '\n\n'
+            )
+        warnings_string = f"""
 Warns
 -----
 FutureWarning
-  In release {version} of {module}, this function will take on
+  In release {version} of {library_name}, this function will take on
   new default value(s) for the following keyword argument(s):
 
-""".format(version=version, module=library_name,
-           funcname=func.__name__) + doc_deprecated_kwargs + """
+""" + doc_deprecated_kwargs + """
 
   To avoid this warning in your code, specify the value of all listed
   keyword arguments.

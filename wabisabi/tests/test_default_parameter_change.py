@@ -8,6 +8,7 @@ from pytest import warns
 
 parametrize = pytest.mark.parametrize
 __version__ = '0.14'
+versions_above = ['0.14.1', '0.14.post0', '0.15', '1.0']
 default_parameter_change = partial(default_parameter_change,
                                    current_library_version=__version__,
                                    library_name='mylib')
@@ -21,7 +22,7 @@ def test_dummy():
     assert foo() == 'hello'
 
 
-@parametrize('version_above', ['0.14.1', '0.14.dev', '0.14.0', '0.15', '1.0'])
+@parametrize('version_above', versions_above)
 def test_deprecating(version_above):
     foo_0_15 = default_parameter_change(version_above, dict(bar='bar'))(foo)
     with warns(FutureWarning,
@@ -34,7 +35,7 @@ def test_deprecating(version_above):
     assert "from ``'bar'`` to ``'hello'``" in str(the_warning.message)
 
 
-@parametrize('version_above', ['0.14.1', '0.14.dev', '0.14.0', '0.15', '1.0'])
+@parametrize('version_above', versions_above)
 def test_deprecating_param_provided(version_above):
     foo_0_15 = default_parameter_change(version_above, dict(bar='bar'))(foo)
     with warnings.catch_warnings():

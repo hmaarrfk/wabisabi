@@ -1,10 +1,10 @@
 import numpydoc
-from distutils.version import LooseVersion as Version
+from packaging.version import Version
 from numpydoc.docscrape import FunctionDoc as _FunctionDoc
 from numpydoc.docscrape import NumpyDocString  # noqa
 
 try:
-    if Version(numpydoc.__version__) < '0.7':
+    if Version(numpydoc.__version__) < Version('0.7'):
         raise ImportError('numpydoc mangling requires numpydoc 0.7.')
 except AttributeError:
     raise ImportError('numpydoc mangling requires numpydoc 0.7.')

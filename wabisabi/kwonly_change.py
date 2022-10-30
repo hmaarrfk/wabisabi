@@ -7,7 +7,7 @@ If you are shipping python source code, then I've included the license
 at the bottom of this file to make your life easier.
 """
 
-from distutils.version import LooseVersion as Version
+from packaging.version import Version
 from functools import wraps
 import inspect
 from warnings import warn
@@ -85,7 +85,7 @@ def kwonly_change(version, previous_arg_order=None, keep_old_signature=False,
                          'library.')
 
     def the_decorator(func):
-        if Version(current_library_version) >= version:
+        if Version(current_library_version) >= Version(version):
             return func
         new_signature = inspect.signature(func)
 
@@ -177,20 +177,19 @@ def kwonly_change(version, previous_arg_order=None, keep_old_signature=False,
         if wrapper.__doc__ is None:
             return wrapper
 
-        warnings_string = """
+        args = ', '.join(old_arg_names[new_nargs:])
+        warnings_string = f"""
 Warns
 -----
 FutureWarning
-  In release {version} of {module}, the argument(s):
+  In release {version} of {library_name}, the argument(s):
 
     `{args}`
 
   will become keyword-only arguments. To avoid this warning,
   provide all the above arguments as keyword arguments.
 
-""".format(version=version, module=library_name,
-           funcname=func.__name__, args=', '.join(old_arg_names[new_nargs:]))
-
+"""
         wrapper.__doc__ = merge_docstrings(wrapper, warnings_string)
         return wrapper
     return the_decorator
