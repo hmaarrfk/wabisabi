@@ -26,10 +26,12 @@ def test_too_easy():
 
 def test_too_easy_doubly_specified():
     with warns(FutureWarning, match='In version 0.15'):
-        with raises(TypeError, match="'b' and 'a' refer to the same parameter."):
+        with raises(TypeError,
+                    match="'b' and 'a' refer to the same parameter."):
             foo_easy(b=1, a=6)
 
-        with raises(TypeError, match="'b' and 'a' refer to the same parameter."):
+        with raises(TypeError,
+                    match="'b' and 'a' refer to the same parameter."):
             foo_easy(a=6, b=1)
 
 
@@ -88,12 +90,13 @@ def foo_hard_old(a, b=2, d=2, *, c=6):
 def foo_easy_already_deprecated(*, a=6):
     return a
 
+
 def test_raises():
     from wabisabi import kwarg_name_change
 
     # Without a current_library_version
     with raises(ValueError):
-        kwarg_name_change('15', library_name='mylib')(foo_easy_already_deprecated)
+        kwarg_name_change('15', library_name='m')(foo_easy_already_deprecated)
 
     # Without a library_name
     with raises(ValueError):

@@ -13,12 +13,13 @@ import inspect
 from warnings import warn
 from .merge_docstrings import merge_docstrings
 
+
 # Keep the order of params as is,
 # `previous_arg_order` and `keep_old_signature`
 # should be optional positional args.
 def kwarg_name_change(version, previous_kwarg_map=None,
                       library_name=None, current_library_version=None):
-    """A decorator factory for keyword arguments to be specified by their old names.
+    """A decorator factory for facilitating keyword arguments name changes.
 
     If the current library version is smaller than version in which the new
     signature takes effect, this deprecator will:
@@ -77,14 +78,11 @@ def kwarg_name_change(version, previous_kwarg_map=None,
                 else:
                     new_key = previous_kwarg_map[key]
 
-                    warn("In version {version} of {library_name}, the "
-                         "keyword argument '{key}' will be replaced by "
-                         "'{new_key}'. "
+                    warn(f"In version {version} of {library_name}, the "
+                         f"keyword argument '{key}' will be replaced by "
+                         f"'{new_key}'. "
                          "To suppress this warning, specify the keyword "
-                         "argument with its new name."
-                         "".format(
-                            version=version, library_name=library_name,
-                            key=key, new_key=new_key),
+                         "argument with its new name.",
                          FutureWarning, stacklevel=2)
                 if new_key in new_kwargs:
                     # Search for the old key.
@@ -113,9 +111,8 @@ FutureWarning
 """.format(version=version, module=library_name)
 
         for key, new_key in previous_kwarg_map.items():
-            warnings_string += ("""
-        '{new_key}' refers to the old keyword argument '{key}'"""
-        "".format(new_key=new_key, key=key))
+            warnings_string += (f"""
+        '{new_key}' refers to the old keyword argument '{key}'""")
 
         warnings_string += """
 

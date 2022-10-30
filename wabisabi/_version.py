@@ -63,7 +63,14 @@ def get_version_from_git():
     for opts in [[]]:
         try:
             p = subprocess.Popen(
-                ["git", "describe", "--long", "--always", "--dirty", "--tags"] + opts,
+                [
+                    "git",
+                    "describe",
+                    "--long",
+                    "--always",
+                    "--dirty",
+                    "--tags",
+                ] + opts,
                 cwd=package_root,
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,

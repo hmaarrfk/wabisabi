@@ -7,7 +7,7 @@ arguments to keyword.
 
 """
 
-from wabisabi import kwonly_change
+from wabisabi import kwarg_name_change
 import functools
 
 
