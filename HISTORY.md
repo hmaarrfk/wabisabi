@@ -1,5 +1,11 @@
 # History
 
+## 0.3.0 (2022.10.30)
+
+* Use packaging instead of distutils for version comaprison. Note that this
+  might cause certain versions to fail. Notably, '0.1.dev3' is now older than
+  '0.1'.
+
 ## 0.2.4 (2018.08.13)
 * Apparently numpydoc 0.6 didn't have a `__version__` attribute....
 
